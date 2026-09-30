@@ -1,0 +1,143 @@
+topacc
+import re
+import matplotlib.pyplot as plt
+
+# Raw log data from CIFAR-100 execution
+log_text = """
+==========================================
+ Training Model: LeNet-5 (CIFAR-100)
+==========================================
+Epoch [01/15] | Loss: 4.0670 | Train Acc: 8.42% | Test Top-1: 11.77% | Test Top-5: 33.30%
+Epoch [02/15] | Loss: 3.7684 | Train Acc: 12.86% | Test Top-1: 15.27% | Test Top-5: 40.06%
+Epoch [03/15] | Loss: 3.6367 | Train Acc: 14.86% | Test Top-1: 16.41% | Test Top-5: 41.81%
+Epoch [04/15] | Loss: 3.5399 | Train Acc: 16.14% | Test Top-1: 18.32% | Test Top-5: 44.57%
+Epoch [05/15] | Loss: 3.4625 | Train Acc: 17.32% | Test Top-1: 19.53% | Test Top-5: 46.36%
+Epoch [06/15] | Loss: 3.4041 | Train Acc: 18.50% | Test Top-1: 20.77% | Test Top-5: 48.03%
+Epoch [07/15] | Loss: 3.3546 | Train Acc: 19.53% | Test Top-1: 21.74% | Test Top-5: 49.06%
+Epoch [08/15] | Loss: 3.3194 | Train Acc: 20.07% | Test Top-1: 22.38% | Test Top-5: 50.27%
+Epoch [09/15] | Loss: 3.2783 | Train Acc: 20.80% | Test Top-1: 22.77% | Test Top-5: 50.38%
+Epoch [10/15] | Loss: 3.2374 | Train Acc: 21.52% | Test Top-1: 23.34% | Test Top-5: 51.48%
+Epoch [11/15] | Loss: 3.2039 | Train Acc: 22.02% | Test Top-1: 23.67% | Test Top-5: 51.87%
+Epoch [12/15] | Loss: 3.1811 | Train Acc: 22.57% | Test Top-1: 24.19% | Test Top-5: 52.77%
+Epoch [13/15] | Loss: 3.1497 | Train Acc: 23.32% | Test Top-1: 25.14% | Test Top-5: 53.15%
+Epoch [14/15] | Loss: 3.1308 | Train Acc: 23.83% | Test Top-1: 25.11% | Test Top-5: 53.54%
+Epoch [15/15] | Loss: 3.1053 | Train Acc: 24.06% | Test Top-1: 25.39% | Test Top-5: 53.88%
+
+==========================================
+ Training Model: AlexNet (CIFAR-100)
+==========================================
+Epoch [01/15] | Loss: 4.3265 | Train Acc: 3.16% | Test Top-1: 7.77% | Test Top-5: 27.46%
+Epoch [02/15] | Loss: 3.8338 | Train Acc: 9.58% | Test Top-1: 13.99% | Test Top-5: 39.64%
+Epoch [03/15] | Loss: 3.5633 | Train Acc: 14.36% | Test Top-1: 19.54% | Test Top-5: 47.13%
+Epoch [04/15] | Loss: 3.3663 | Train Acc: 18.26% | Test Top-1: 22.84% | Test Top-5: 51.84%
+Epoch [05/15] | Loss: 3.2031 | Train Acc: 21.17% | Test Top-1: 25.73% | Test Top-5: 55.42%
+Epoch [06/15] | Loss: 3.0668 | Train Acc: 23.37% | Test Top-1: 28.62% | Test Top-5: 59.93%
+Epoch [07/15] | Loss: 2.9666 | Train Acc: 25.72% | Test Top-1: 30.20% | Test Top-5: 61.60%
+Epoch [08/15] | Loss: 2.8715 | Train Acc: 27.24% | Test Top-1: 32.00% | Test Top-5: 63.27%
+Epoch [09/15] | Loss: 2.7861 | Train Acc: 28.99% | Test Top-1: 34.16% | Test Top-5: 65.44%
+Epoch [10/15] | Loss: 2.7230 | Train Acc: 30.45% | Test Top-1: 35.17% | Test Top-5: 65.90%
+Epoch [11/15] | Loss: 2.6545 | Train Acc: 31.38% | Test Top-1: 36.67% | Test Top-5: 68.04%
+Epoch [12/15] | Loss: 2.6107 | Train Acc: 32.40% | Test Top-1: 37.46% | Test Top-5: 68.84%
+Epoch [13/15] | Loss: 2.5576 | Train Acc: 33.74% | Test Top-1: 37.77% | Test Top-5: 69.28%
+Epoch [14/15] | Loss: 2.5122 | Train Acc: 34.49% | Test Top-1: 38.92% | Test Top-5: 70.98%
+Epoch [15/15] | Loss: 2.4626 | Train Acc: 35.29% | Test Top-1: 39.72% | Test Top-5: 71.04%
+
+==========================================
+ Training Model: VGG16 (CIFAR-100)
+==========================================
+Epoch [01/15] | Loss: 4.3488 | Train Acc: 2.54% | Test Top-1: 3.23% | Test Top-5: 15.20%
+Epoch [02/15] | Loss: 4.1430 | Train Acc: 3.89% | Test Top-1: 4.85% | Test Top-5: 20.34%
+Epoch [03/15] | Loss: 3.9668 | Train Acc: 5.63% | Test Top-1: 7.78% | Test Top-5: 28.29%
+Epoch [04/15] | Loss: 3.7716 | Train Acc: 8.12% | Test Top-1: 7.96% | Test Top-5: 30.30%
+Epoch [05/15] | Loss: 3.5751 | Train Acc: 10.56% | Test Top-1: 11.76% | Test Top-5: 38.63%
+Epoch [06/15] | Loss: 3.4339 | Train Acc: 12.52% | Test Top-1: 13.39% | Test Top-5: 43.19%
+Epoch [07/15] | Loss: 3.2865 | Train Acc: 14.54% | Test Top-1: 17.09% | Test Top-5: 48.69%
+Epoch [08/15] | Loss: 3.1513 | Train Acc: 17.00% | Test Top-1: 19.21% | Test Top-5: 52.17%
+Epoch [09/15] | Loss: 3.0247 | Train Acc: 19.55% | Test Top-1: 21.61% | Test Top-5: 55.15%
+Epoch [10/15] | Loss: 2.8797 | Train Acc: 22.07% | Test Top-1: 24.00% | Test Top-5: 58.79%
+Epoch [11/15] | Loss: 2.7434 | Train Acc: 24.84% | Test Top-1: 25.99% | Test Top-5: 61.46%
+Epoch [12/15] | Loss: 2.6354 | Train Acc: 27.40% | Test Top-1: 30.88% | Test Top-5: 67.41%
+Epoch [13/15] | Loss: 2.5194 | Train Acc: 30.07% | Test Top-1: 30.88% | Test Top-5: 66.12%
+Epoch [14/15] | Loss: 2.4247 | Train Acc: 32.41% | Test Top-1: 34.69% | Test Top-5: 69.77%
+Epoch [15/15] | Loss: 2.3428 | Train Acc: 34.66% | Test Top-1: 37.70% | Test Top-5: 72.86%
+"""
+
+# 1. Parse log data dynamically into structured dictionary
+models_data = {}
+current_model = None
+
+model_header_pattern = re.compile(r"Training Model:\s*([^\(]+)")
+epoch_pattern = re.compile(r"Epoch \[(\d+)/15\] \| Loss: ([\d\.]+) \| Train Acc: ([\d\.]+)% \| Test Top-1: ([\d\.]+)% \| Test Top-5: ([\d\.]+)%")
+
+for line in log_text.strip().split("\n"):
+    header_match = model_header_pattern.search(line)
+    if header_match:
+        current_model = header_match.group(1).strip()
+        models_data[current_model] = {"epochs": [], "loss": [], "train_acc": [], "top1": [], "top5": []}
+        continue
+
+    epoch_match = epoch_pattern.search(line)
+    if epoch_match and current_model:
+        models_data[current_model]["epochs"].append(int(epoch_match.group(1)))
+        models_data[current_model]["loss"].append(float(epoch_match.group(2)))
+        models_data[current_model]["train_acc"].append(float(epoch_match.group(3)))
+        models_data[current_model]["top1"].append(float(epoch_match.group(4)))
+        models_data[current_model]["top5"].append(float(epoch_match.group(5)))
+
+# 2. Configure 2x2 Plot Grid
+fig, axes = plt.subplots(2, 2, figsize=(15, 11))
+colors = {"LeNet-5": "#d62728", "AlexNet": "#1f77b4", "VGG16": "#2ca02c"}
+markers = {"LeNet-5": "o", "AlexNet": "s", "VGG16": "^"}
+
+# Subplot 1: Training Accuracy
+ax_train = axes[0, 0]
+for model_name, metrics in models_data.items():
+    ax_train.plot(metrics["epochs"], metrics["train_acc"], label=model_name,
+                  color=colors[model_name], marker=markers[model_name], linewidth=2)
+ax_train.set_title("Training Accuracy Across Epochs", fontsize=12, fontweight="bold")
+ax_train.set_xlabel("Epoch", fontsize=10)
+ax_train.set_ylabel("Accuracy (%)", fontsize=10)
+ax_train.set_xticks(range(1, 16))
+ax_train.grid(True, linestyle=":", alpha=0.6)
+ax_train.legend(fontsize=10)
+
+# Subplot 2: Test Top-1 Accuracy
+ax_top1 = axes[0, 1]
+for model_name, metrics in models_data.items():
+    ax_top1.plot(metrics["epochs"], metrics["top1"], label=model_name,
+                 color=colors[model_name], marker=markers[model_name], linewidth=2)
+ax_top1.set_title("Test Top-1 Accuracy Across Epochs", fontsize=12, fontweight="bold")
+ax_top1.set_xlabel("Epoch", fontsize=10)
+ax_top1.set_ylabel("Accuracy (%)", fontsize=10)
+ax_top1.set_xticks(range(1, 16))
+ax_top1.grid(True, linestyle=":", alpha=0.6)
+ax_top1.legend(fontsize=10)
+
+# Subplot 3: Test Top-5 Accuracy
+ax_top5 = axes[1, 0]
+for model_name, metrics in models_data.items():
+    ax_top5.plot(metrics["epochs"], metrics["top5"], label=model_name,
+                 color=colors[model_name], marker=markers[model_name], linewidth=2)
+ax_top5.set_title("Test Top-5 Accuracy Across Epochs", fontsize=12, fontweight="bold")
+ax_top5.set_xlabel("Epoch", fontsize=10)
+ax_top5.set_ylabel("Accuracy (%)", fontsize=10)
+ax_top5.set_xticks(range(1, 16))
+ax_top5.grid(True, linestyle=":", alpha=0.6)
+ax_top5.legend(fontsize=10)
+
+# Subplot 4: Training Loss
+ax_loss = axes[1, 1]
+for model_name, metrics in models_data.items():
+    ax_loss.plot(metrics["epochs"], metrics["loss"], label=model_name,
+                 color=colors[model_name], marker=markers[model_name], linewidth=2)
+ax_loss.set_title("Training Loss Across Epochs", fontsize=12, fontweight="bold")
+ax_loss.set_xlabel("Epoch", fontsize=10)
+ax_loss.set_ylabel("Cross-Entropy Loss", fontsize=10)
+ax_loss.set_xticks(range(1, 16))
+ax_loss.grid(True, linestyle=":", alpha=0.6)
+ax_loss.legend(fontsize=10)
+
+plt.suptitle("CIFAR-100 Architecture Performance Comparison", fontsize=15, fontweight="bold", y=0.98)
+plt.tight_layout(rect=[0, 0, 1, 0.96])
+plt.savefig("cifar100_all_architectures_comparison.png", dpi=300)
+plt.show()

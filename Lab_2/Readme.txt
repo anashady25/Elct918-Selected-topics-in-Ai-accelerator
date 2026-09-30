@@ -1,0 +1,1 @@
+THe codes provided in this file is runnable on python, google collab ,vscode and others platforms that compiles python code.
