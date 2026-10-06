@@ -1,0 +1,306 @@
+# Lab 3 – Real-Time Handwritten Digit Recognition
+**ELCT 918 – Selected Topics in AI Accelerators Hardware Design**  
+German University in Cairo · Winter 2026  
+Course Instructor: Dr. Eman Azab | Lab Instructor: MSc Eng. Nour ElShahawy
+
+---
+
+## Overview
+
+This project takes a LeNet-5 CNN trained on MNIST and turns it into a **real-time webcam OCR application** that recognises handwritten digits held in front of a camera. It covers the full deployment pipeline: model adaptation → preprocessing → live inference.
+
+```
+Lab3 assignment/
+│
+├── train_lenet5_mnist.ipynb      ✅  Task 1  – LeNet-5 MNIST training (Colab-ready)
+├── lenet5_mnist.pt               ⬇️  Task 1  – trained weights (download from Colab)
+│
+├── preprocess.py                 ✅  Task 2  – preprocessing pipeline
+├── preprocessing_steps.png       ✅  Task 2  – report figure (auto-generated)
+│
+├── realtime_digit.py             ✅  Task 3  – live webcam inference app
+│
+├── train_lenet5_madbase.ipynb    ✅  Bonus   – MADBase training notebook (Colab-ready)
+├── lenet5_madbase.pt             ⬇️  Bonus   – Arabic model weights (download from Colab)
+├── madbase_norm.json             ⬇️  Bonus   – normalisation constants (download from Colab)
+├── realtime_digit_arabic.py      ✅  Bonus   – Arabic-Indic live inference app
+│
+├── README.md                     📄  this file
+├── mnist_data/                   📦  auto-downloaded by Task 1 notebook
+└── madbase_data/                 📦  auto-downloaded by Bonus notebook (Kaggle)
+```
+
+---
+
+## Progress
+
+| Task | Description | Status |
+|------|-------------|--------|
+| Task 1 | Retrain LeNet-5 on MNIST | ✅ Complete |
+| Task 2 | Preprocessing pipeline | ✅ Complete |
+| Task 3 | Real-time digit recognition | ✅ Complete |
+| Bonus  | Arabic-Indic digits (MADBase) | ✅ Complete |
+
+---
+
+## Task 1 – Retrain LeNet-5 on MNIST ✅
+
+### File
+`train_lenet5_mnist.ipynb`
+
+### What was done
+LeNet-5 from Lab 2 was designed for CIFAR-10 (3-channel, 32×32 colour images). For MNIST (1-channel, 28×28 grayscale) the following adaptations were made:
+
+| Property | Lab 2 (CIFAR-10) | Lab 3 (MNIST) |
+|----------|-----------------|---------------|
+| `conv1` input channels | `3` | **`1`** |
+| Input size | 32×32 (native) | 28×28 → **padded to 32×32** |
+| All other layers | — | unchanged |
+| Normalisation mean | `0.4914` | **`0.1307`** |
+| Normalisation std  | `0.2023` | **`0.3081`** |
+
+Everything else — layer sizes, activations (`tanh`), pooling strategy — is identical to the Lab 2 implementation.
+
+### Architecture (`LeNet5MNIST`)
+```
+Input: (B, 1, 32, 32)
+  Conv2d(1→6, k=5)  → tanh → AvgPool2d(2)   →  (B, 6,  14, 14)
+  Conv2d(6→16, k=5) → tanh → AvgPool2d(2)   →  (B, 16, 5,  5 )
+  Flatten                                    →  (B, 400)
+  Linear(400→120)   → tanh
+  Linear(120→84)    → tanh
+  Linear(84→10)     →  logits
+```
+**Trainable parameters: 61,706**
+
+### Training configuration
+| Hyperparameter | Value |
+|----------------|-------|
+| Optimiser | Adam |
+| Learning rate | 0.001 |
+| LR scheduler | ReduceLROnPlateau (factor=0.5, patience=3) |
+| Batch size | 128 |
+| Epochs | 15 |
+| Random seed | 42 |
+| Augmentation | RandomAffine (±10°, translate ±10%) |
+
+### How to run
+1. Open `train_lenet5_mnist.ipynb` in **Google Colab** (recommended, free GPU)
+2. `Runtime → Run all`
+3. The notebook automatically downloads `lenet5_mnist.pt` to your computer when training finishes
+4. Place `lenet5_mnist.pt` in this folder — Tasks 2 & 3 load it from here
+
+To run **locally** instead:
+```bash
+pip install torch torchvision matplotlib
+jupyter notebook train_lenet5_mnist.ipynb
+```
+
+### Expected results
+| Metric | Expected value |
+|--------|---------------|
+| Test accuracy | ~99% |
+| Trainable parameters | 61,706 |
+| Time / epoch (Colab GPU) | ~15–30 s |
+| Time / epoch (CPU) | ~60–120 s |
+
+### Key design note – reproducing the MNIST input distribution
+The assignment specifies that the preprocessing pipeline (Task 2) must reproduce exactly how MNIST images were originally constructed:
+- Digits are **white on black** (inverted relative to ink on paper)
+- The digit is size-normalised to fit a **20×20 px** bounding box (aspect-ratio preserved)
+- The result is centred by **centre of mass** in a **28×28** canvas
+- The 28×28 image is **zero-padded to 32×32** before entering LeNet-5
+
+The normalisation values recorded here (`mean=0.1307, std=0.3081`) **must be applied identically** in the inference pipeline.
+
+---
+
+## Task 2 – Preprocessing Pipeline ✅
+
+### Files
+- `preprocess.py` — the pipeline module
+- `preprocessing_steps.png` — report figure (auto-generated on first run)
+
+### What was done
+A function `preprocess(roi)` converts any BGR webcam crop into a normalised PyTorch tensor
+that matches the MNIST training distribution exactly.
+
+### The 5-step pipeline
+
+| Step | Operation | OpenCV call | Why |
+|------|-----------|-------------|-----|
+| 1a | BGR → Grayscale | `cv2.cvtColor(…, COLOR_BGR2GRAY)` | Remove colour, one channel |
+| 1b | Gaussian blur | `cv2.GaussianBlur(…, (5,5), 0)` | Kill camera noise |
+| 2 | Otsu threshold + invert | `cv2.threshold(…, THRESH_BINARY_INV + THRESH_OTSU)` | White digit on black bg (MNIST convention) |
+| 2b | Dilation | `cv2.dilate(…, ellipse_3x3, iterations=1)` | Thicken thin ballpoint strokes |
+| 3 | Largest contour crop | `cv2.findContours` + `cv2.boundingRect` | Remove surrounding whitespace |
+| 4 | Resize + centre | `cv2.resize` → 20×20 → 28×28 canvas → pad to 32×32 | Reproduce MNIST's own construction |
+| 5 | Normalise → tensor | `(pixel/255 − 0.1307) / 0.3081` | Match training distribution |
+
+### Function signature
+```python
+from preprocess import preprocess
+
+tensor, steps = preprocess(roi, blur_ksize=5, dilate_iters=1, debug=True)
+# tensor : torch.Tensor  shape (1, 1, 32, 32)
+# steps  : list of intermediate numpy arrays (only when debug=True)
+```
+
+### How to run (standalone demo + generate report figure)
+```bash
+# Synthetic digit (no camera needed)
+python preprocess.py
+
+# Your own image
+python preprocess.py path/to/digit_photo.jpg
+```
+Both commands save `preprocessing_steps.png` — the figure to paste into the report.
+
+### Design notes
+- **Margin on crop:** a 5 % margin is added around the bounding box so the digit never
+  touches the crop edge, matching MNIST's visual style.
+- **Aspect-ratio preservation:** only the longest side is scaled to 20 px; the shorter
+  side shrinks proportionally, then the result is centred by bounding-box centre (not
+  centre of mass — a simplification that works well in practice).
+- **Fallback for no contour:** if `findContours` finds nothing (e.g. blank frame), the
+  pipeline returns a zero tensor; the model will output uniform low-confidence logits.
+
+---
+
+## Task 3 – Real-Time Digit Recognition ✅
+
+### File
+`realtime_digit.py`
+
+### What was done
+A real-time inference application that opens the webcam, draws a centred ROI box, and
+runs LeNet-5 on every frame. Two windows are shown simultaneously:
+
+| Window | Contents |
+|--------|----------|
+| **Main feed** | Full webcam frame with ROI box, predicted digit, confidence bar, FPS |
+| **Model's view** | The 28×28 preprocessed input enlarged to 280×280 pixels |
+
+### How to run
+
+```bash
+# Built-in laptop webcam (index 0)
+python realtime_digit.py
+
+# Specific camera index (phone as webcam)
+python realtime_digit.py --source 1
+
+# Video file (no camera needed)
+python realtime_digit.py --source "path/to/video.mp4"
+
+# Custom weights or ROI size
+python realtime_digit.py --weights lenet5_mnist.pt --roi 0.45
+```
+
+Press **Q** to quit.
+
+### Prerequisites
+- `lenet5_mnist.pt` must be in this folder (produced by Task 1)
+- `preprocess.py` must be in this folder (Task 2)
+
+### Design notes
+- **ROI box:** centred square, 45 % of the shorter frame dimension by default (`--roi`)
+- **Corner-accent style** box instead of a plain rectangle for cleaner UI
+- **Confidence colour coding:** green ≥ 80 %, yellow 50–80 %, red < 50 %
+- **FPS:** averaged over 0.5-second windows for a stable reading
+- **Video file looping:** when a video file ends, playback loops back to the start
+- **Graceful error messages:** clear instructions if the weights file or camera is missing
+
+---
+
+## Bonus – Arabic-Indic Digits (MADBase) ✅
+
+### Files
+| File | Purpose |
+|------|---------|
+| `train_lenet5_madbase.ipynb` | Colab training notebook |
+| `lenet5_madbase.pt` | Trained weights (download from Colab) |
+| `madbase_norm.json` | Dataset mean & std (download from Colab) |
+| `realtime_digit_arabic.py` | Live Arabic-Indic recognition app |
+
+### Dataset
+**MADBase** (Modified Arabic Handwritten Digits Database) — available on Kaggle as
+[Arabic Handwritten Digits Dataset (AHDD1)](https://www.kaggle.com/datasets/mloey1/ahdd1).
+
+| Split | Samples |
+|-------|---------|
+| Train | 13,440  |
+| Test  | 3,360   |
+
+CSV format: `N × 784` pixel values (0–255), one image per row.
+
+### How to run the training notebook (Colab)
+1. Go to [colab.research.google.com](https://colab.research.google.com) → Upload `train_lenet5_madbase.ipynb`
+2. `Runtime → Change runtime type → T4 GPU`
+3. Create a Kaggle API key at https://www.kaggle.com/settings → API → *Create New Token*
+4. Run all cells — upload `kaggle.json` when prompted
+5. Download `lenet5_madbase.pt` and `madbase_norm.json` → place in this folder
+
+### How to run the Arabic live app (local)
+```bash
+# Built-in webcam
+python realtime_digit_arabic.py
+
+# Phone / external camera
+python realtime_digit_arabic.py --source 1
+
+# Video file
+python realtime_digit_arabic.py --source "path/to/video.mp4"
+```
+
+The ROI box is **orange** (vs. green in Task 3) so the two apps are visually distinct.  
+Arabic-Indic numerals (٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩) are rendered via **PIL** because OpenCV
+cannot display Unicode Arabic characters.
+
+### The Arabic Zero (٠) — crop & resize analysis
+
+The Arabic-Indic zero is a **small filled dot**, unlike the Latin zero (open oval).
+
+| Stage | What happens |
+|-------|-------------|
+| Thresholding | The dot becomes a small white region |
+| `findContours` | Bounding box is very small (≈ 5–15 px in a typical crop) |
+| Resize to 20 px | The dot is blown up to a filled ~20×20 square |
+| Model input | Looks like a dense blob — nothing like a Latin zero |
+
+**How it is handled:**
+- The model is trained on MADBase, which already contains Arabic zeros as small dots.
+  After `Pad → RandomAffine`, the network learns the dot representation directly.
+- Dilation is kept at `dilate_iters=1` (default) for consistency, but setting it to `0`
+  for the zero case would prevent further enlarging the dot.
+- The normalisation constants (`madbase_norm.json`) differ from MNIST and are applied
+  correctly in the inference pipeline.
+
+---
+
+## Dependencies
+
+```bash
+pip install torch torchvision numpy matplotlib opencv-python
+```
+
+| Package | Purpose |
+|---------|---------|
+| `torch` / `torchvision` | Model training and inference |
+| `numpy` | Array manipulation |
+| `matplotlib` | Visualisation |
+| `opencv-python` | Camera capture and image preprocessing |
+
+### Camera setup
+- **Laptop webcam:** works out of the box (`cv2.VideoCapture(0)`)
+- **Phone as webcam:** install [DroidCam](https://www.dev47apps.com/) or [Iriun Webcam](https://iriun.com/) on your phone and the matching desktop client. Try indices `0`, `1`, `2`.
+- **Video file fallback:** pass a file path to `cv2.VideoCapture("video.mp4")` — the same code works for both.
+
+> **Note:** Run Task 3 locally, not in Google Colab. Colab cannot access your camera.
+
+---
+
+## References
+- LeCun et al. (1998) – *Gradient-Based Learning Applied to Document Recognition*
+- [MNIST Database](http://yann.lecun.com/exdb/mnist/)
+- [MADBase / AHDD1 on Kaggle](https://www.kaggle.com/datasets/mloey1/ahdd1) *(Bonus)*
