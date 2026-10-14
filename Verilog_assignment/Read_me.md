@@ -123,3 +123,5 @@ Working backwards:
 4. Paste the contents of `testbench.sv` into the **testbench** panel.
 5. Tick **"Open EPWave after run"** and click **Run**.
 6. Inspect the log for `PASS` and waveforms for the `flag` pulse.
+
+https://edaplayground.com/x/86gf, the link will guide you to the edaplayground link where the 'design.sv' and 'testbench.sv' are written.
