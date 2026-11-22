@@ -1,0 +1,15 @@
+{
+  "_comment": "Cycle counts for the bandwidth / energy-per-bit calculations. ddr_write_cycles and ddr_read_cycles are filled in after the board run (7-segment display, SW[7:6] = 01 / 10, plus the upper bits from SW[7:6] = 11). Until then the estimates per word are used. The BRAM numbers come from tb_bram_top (simulation); put the board values in the *_board fields.",
+  "f_clk_hz": 100000000,
+  "ddr_f_mem_hz": 300000000,
+  "ddr_words": 67108864,
+  "ddr_write_cycles": null,
+  "ddr_read_cycles": null,
+  "ddr_est_write_cycles_per_word": 15,
+  "ddr_est_read_cycles_per_word": 30,
+  "bram_words": 4096,
+  "bram_write_cycles_sim": 12288,
+  "bram_read_cycles_sim": 12288,
+  "bram_write_cycles_board": null,
+  "bram_read_cycles_board": null
+}

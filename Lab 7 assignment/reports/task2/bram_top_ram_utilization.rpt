@@ -1,0 +1,49 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
+| Date         : Sun Nov 22 17:09:59 2026
+| Host         : LAPTOP-GF48HFHB running 64-bit major release  (build 9200)
+| Command      : report_ram_utilization -file reports/task2/bram_top_ram_utilization.rpt
+| Design       : bram_top
+| Device       : xc7a100tcsg324-1
+| Speed File   : -1
+-----------------------------------------------------------------------------------------
+
+RAM Usage Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Memory Usage
+
+1. Summary
+----------
+
++----------------+------------+
+| Memory Type    | Total Used |
++----------------+------------+
+| BlockRAM       |          4 |
++----------------+------------+
+|       RAMB36E1 |          4 |
++----------------+------------+
+| URAM           |          0 |
++----------------+------------+
+| DistributedRAM |          0 |
++----------------+------------+
+
+
+2. Memory Usage
+---------------
+
++-------------+------------+-----------------+---------+------+---------------------+-------------+-------------+------------+------------+------------------+----------------+-----------------+--------------+----------------------------+
+| Memory Name | Array Size | RAM Utilization | Address | Port | Clock               | Write Depth | Write Width | Read Width | Read Depth | Address Register | Input Register | Output Register | Bounding Box | Range                      |
++-------------+------------+-----------------+---------+------+---------------------+-------------+-------------+------------+------------+------------------+----------------+-----------------+--------------+----------------------------+
+| u_bram/mem  |     131072 | RAMB36E1:4      | Q       |   A  | CLK100MHZ_IBUF_BUFG |        4096 |          32 |         32 |       4096 |              YES |            YES |            None |          1X4 |  RAMB36_X0Y14:RAMB36_X0Y17 |
++-------------+------------+-----------------+---------+------+---------------------+-------------+-------------+------------+------------+------------------+----------------+-----------------+--------------+----------------------------+
+|      -      |      -     |        -        |    -    |   B  |              Unused |      Unused |      Unused |     Unused |     Unused |         -        |        -       |        -        |       -      |              -             |
++-------------+------------+-----------------+---------+------+---------------------+-------------+-------------+------------+------------+------------------+----------------+-----------------+--------------+----------------------------+
+* Includes block RAM cascade(s)
+** Summary includes both inferred and instantiated RAMs, even if -detail flag is not used
+*** Use the -detail option for a list of RAM cells of each Memory Type
+
+

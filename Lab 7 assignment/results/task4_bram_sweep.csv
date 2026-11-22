@@ -1,0 +1,62 @@
+width,depth,kbits,status,ramb36,ramb18,tiles,bram_tile,lut,ff,wns,eta,seconds,message
+8,4096,32.0,ROUTED,1,0,1.0,1,8,49,6.286,0.8888888888888888,87,
+8,65536,512.0,ROUTED,16,0,16.0,16,9,59,5.464,0.8888888888888888,96,
+8,262144,2048.0,ROUTED,64,0,64.0,64,81,101,2.906,0.8888888888888888,73,
+8,524288,4096.0,ROUTED,128,0,128.0,128,153,172,0.864,0.8888888888888888,92,
+8,524800,4100.0,FAILED_place,0,0,0.0,0,96455,265,NA,0.0,300,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+8,525824,4108.0,FAILED_place,0,0,0.0,0,96664,264,NA,0.0,313,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+8,527872,4124.0,FAILED_place,0,0,0.0,0,97043,264,NA,0.0,310,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+8,531456,4152.0,FAILED_place,0,0,0.0,0,97705,266,NA,0.0,298,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+8,538624,4208.0,FAILED_place,0,0,0.0,0,99025,266,NA,0.0,315,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+8,552960,4320.0,FAILED_place,0,0,0.0,0,101641,271,NA,0.0,301,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+16,2048,32.0,ROUTED,1,0,1.0,1,14,48,6.557,0.8888888888888888,44,
+16,32768,512.0,ROUTED,16,0,16.0,16,8,58,5.776,0.8888888888888888,67,
+16,131072,2048.0,ROUTED,64,0,64.0,64,77,105,1.457,0.8888888888888888,69,
+16,262144,4096.0,ROUTED,128,0,128.0,128,153,161,1.081,0.8888888888888888,86,
+16,262400,4100.0,FAILED_place,0,0,0.0,0,95146,728,NA,0.0,289,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+16,262912,4108.0,FAILED_place,0,0,0.0,0,95340,729,NA,0.0,286,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+16,263936,4124.0,FAILED_place,0,0,0.0,0,95709,729,NA,0.0,303,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+16,265728,4152.0,FAILED_place,0,0,0.0,0,96362,732,NA,0.0,297,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+16,269312,4208.0,FAILED_place,0,0,0.0,0,97648,740,NA,0.0,294,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+16,276480,4320.0,FAILED_place,0,0,0.0,0,100251,758,NA,0.0,312,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+18,2048,36.0,ROUTED,1,0,1.0,1,16,64,5.415,1.0,45,
+18,8192,144.0,ROUTED,4,1,4.5,4.5,10,54,6.132,0.8888888888888888,87,
+18,16384,288.0,ROUTED,9,0,9.0,9,10,53,6.174,0.8888888888888888,46,
+18,32768,576.0,ROUTED,18,0,18.0,18,10,61,5.254,0.8888888888888888,94,
+18,131072,2304.0,ROUTED,72,0,72.0,72,84,120,1.522,0.8888888888888888,77,
+18,196608,3456.0,ROUTED,108,0,108.0,108,132,159,0.851,0.8888888888888888,82,
+18,229376,4032.0,ROUTED,126,0,126.0,126,159,276,0.816,0.8888888888888888,102,
+18,229632,4036.5,FAILED_place,0,0,0.0,0,93508,708,NA,0.0,284,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+18,229888,4041.0,FAILED_place,0,0,0.0,0,93610,708,NA,0.0,265,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+18,230400,4050.0,FAILED_place,0,0,0.0,0,93819,708,NA,0.0,286,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+18,231424,4068.0,FAILED_place,0,0,0.0,0,94225,707,NA,0.0,297,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+18,233472,4104.0,FAILED_place,0,0,0.0,0,95064,709,NA,0.0,284,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+18,237568,4176.0,FAILED_place,0,0,0.0,0,96734,715,NA,0.0,294,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+18,245760,4320.0,FAILED_place,0,0,0.0,0,100077,738,NA,0.0,299,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+18,262144,4608.0,FAILED_place,0,0,0.0,0,106820,785,NA,0.0,321,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+32,1024,32.0,ROUTED,1,0,1.0,1,28,63,6.231,0.8888888888888888,45,
+32,8192,256.0,ROUTED,8,0,8.0,8,24,66,6.049,0.8888888888888888,47,
+32,16384,512.0,ROUTED,16,0,16.0,16,24,73,5.118,0.8888888888888888,55,
+32,65536,2048.0,ROUTED,64,0,64.0,64,25,128,3.927,0.8888888888888888,71,
+32,131072,4096.0,ROUTED,128,0,128.0,128,145,169,0.853,0.8888888888888888,93,
+32,131200,4100.0,FAILED_place,0,0,0.0,0,94996,718,NA,0.0,279,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+32,131456,4108.0,FAILED_place,0,0,0.0,0,95158,741,NA,0.0,289,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+32,131968,4124.0,FAILED_place,0,0,0.0,0,95545,741,NA,0.0,287,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+32,132864,4152.0,FAILED_place,0,0,0.0,0,96136,741,NA,0.0,279,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+32,134656,4208.0,FAILED_place,0,0,0.0,0,97435,742,NA,0.0,308,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+32,138240,4320.0,FAILED_place,0,0,0.0,0,100037,754,NA,0.0,308,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+36,1024,36.0,ROUTED,1,0,1.0,1,28,63,6.121,1.0,45,
+36,4096,144.0,ROUTED,4,0,4.0,4,24,65,5.983,1.0,45,
+36,8192,288.0,ROUTED,9,0,9.0,9,24,66,5.596,0.8888888888888888,49,
+36,16384,576.0,ROUTED,18,0,18.0,18,24,73,5.686,0.8888888888888888,57,
+36,65536,2304.0,ROUTED,72,0,72.0,72,25,145,4.422,0.8888888888888888,74,
+36,98304,3456.0,ROUTED,108,0,108.0,108,111,142,1.154,0.8888888888888888,85,
+36,98432,3460.5,FAILED_place,0,0,0.0,0,74559,599,NA,0.0,172,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+36,98560,3465.0,FAILED_place,0,0,0.0,0,74632,619,NA,0.0,173,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+36,98816,3474.0,FAILED_place,0,0,0.0,0,74833,619,NA,0.0,175,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+36,99328,3492.0,FAILED_place,0,0,0.0,0,75192,620,NA,0.0,199,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+36,100352,3528.0,FAILED_place,0,0,0.0,0,75897,620,NA,0.0,220,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+36,102400,3600.0,FAILED_place,0,0,0.0,0,77412,621,NA,0.0,232,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+36,106496,3744.0,FAILED_place,0,0,0.0,0,80519,639,NA,0.0,227,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+36,114688,4032.0,FAILED_place,0,0,0.0,0,86896,684,NA,0.0,266,ERROR: [Common 17-69] Command failed: Placer could not place all instances 
+36,131072,4608.0,FAILED_place,0,0,0.0,0,99952,757,NA,0.0,314,ERROR: [Common 17-69] Command failed: Placer could not place all instances 

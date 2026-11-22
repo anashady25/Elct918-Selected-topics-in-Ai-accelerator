@@ -1,0 +1,1 @@
+width=32 max_depth=131072 first_fail=131200

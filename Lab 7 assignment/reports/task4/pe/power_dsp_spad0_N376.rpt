@@ -1,0 +1,899 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------
+| Tool Version     : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
+| Date             : Sun Nov 22 20:31:11 2026
+| Host             : LAPTOP-GF48HFHB running 64-bit major release  (build 9200)
+| Command          : report_power -file L://reports/task4/pe/power_dsp_spad0_N376.rpt
+| Design           : pe_array
+| Device           : xc7a100tcsg324-1
+| Design State     : routed
+| Grade            : commercial
+| Process          : typical
+| Characterization : Production
+----------------------------------------------------------------------------------------------
+
+Power Report
+
+Table of Contents
+-----------------
+1. Summary
+1.1 On-Chip Components
+1.2 Power Supply Summary
+1.3 Confidence Level
+2. Settings
+2.1 Environment
+2.2 Clock Constraints
+3. Detailed Reports
+3.1 By Hierarchy
+
+1. Summary
+----------
+
++--------------------------+--------------+
+| Total On-Chip Power (W)  | 1.012        |
+| Design Power Budget (W)  | Unspecified* |
+| Power Budget Margin (W)  | NA           |
+| Dynamic (W)              | 0.912        |
+| Device Static (W)        | 0.100        |
+| Effective TJA (C/W)      | 4.6          |
+| Max Ambient (C)          | 80.4         |
+| Junction Temperature (C) | 29.6         |
+| Confidence Level         | Medium       |
+| Setting File             | ---          |
+| Simulation Activity File | ---          |
+| Design Nets Matched      | NA           |
++--------------------------+--------------+
+* Specify Design Power Budget using, set_operating_conditions -design_power_budget <value in Watts>
+
+
+1.1 On-Chip Components
+----------------------
+
++----------------+-----------+----------+-----------+-----------------+
+| On-Chip        | Power (W) | Used     | Available | Utilization (%) |
++----------------+-----------+----------+-----------+-----------------+
+| Clocks         |     0.212 |        3 |       --- |             --- |
+| Slice Logic    |     0.154 |   126813 |       --- |             --- |
+|   LUT as Logic |     0.129 |    54945 |     63400 |           86.66 |
+|   CARRY4       |     0.017 |     9728 |     15850 |           61.38 |
+|   Register     |     0.009 |    41283 |    126800 |           32.56 |
+|   Others       |     0.000 |     2498 |       --- |             --- |
+| Signals        |     0.262 |   105221 |       --- |             --- |
+| DSPs           |     0.237 |      240 |       240 |          100.00 |
+| I/O            |     0.047 |       18 |       210 |            8.57 |
+| Static Power   |     0.100 |          |           |                 |
+| Total          |     1.012 |          |           |                 |
++----------------+-----------+----------+-----------+-----------------+
+
+
+1.2 Power Supply Summary
+------------------------
+
++-----------+-------------+-----------+-------------+------------+
+| Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
++-----------+-------------+-----------+-------------+------------+
+| Vccint    |       1.000 |     0.883 |       0.866 |      0.018 |
+| Vccaux    |       1.800 |     0.020 |       0.002 |      0.018 |
+| Vcco33    |       3.300 |     0.017 |       0.013 |      0.004 |
+| Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
+| Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |
+| Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |
+| Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |
+| Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |
+| Vccaux_io |       1.800 |     0.000 |       0.000 |      0.000 |
+| Vccbram   |       1.000 |     0.000 |       0.000 |      0.000 |
+| MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |
+| MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |
+| Vccadc    |       1.800 |     0.020 |       0.000 |      0.020 |
++-----------+-------------+-----------+-------------+------------+
+
+
+1.3 Confidence Level
+--------------------
+
++-----------------------------+------------+-------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| User Input Data             | Confidence | Details                                               | Action                                                                                                     |
++-----------------------------+------------+-------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| Design implementation state | High       | Design is routed                                      |                                                                                                            |
+| Clock nodes activity        | High       | User specified more than 95% of clocks                |                                                                                                            |
+| I/O nodes activity          | Medium     | More than 5% of inputs are missing user specification | Provide missing input activity with simulation results or by editing the "By Resource Type -> I/Os" view   |
+| Internal nodes activity     | Medium     | User specified less than 25% of internal nodes        | Provide missing internal nodes activity with simulation results or by editing the "By Resource Type" views |
+| Device models               | High       | Device models are Production                          |                                                                                                            |
+|                             |            |                                                       |                                                                                                            |
+| Overall confidence level    | Medium     |                                                       |                                                                                                            |
++-----------------------------+------------+-------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+
+
+2. Settings
+-----------
+
+2.1 Environment
+---------------
+
++-----------------------+--------------------------+
+| Ambient Temp (C)      | 25.0                     |
+| ThetaJA (C/W)         | 4.6                      |
+| Airflow (LFM)         | 250                      |
+| Heat Sink             | medium (Medium Profile)  |
+| ThetaSA (C/W)         | 4.6                      |
+| Board Selection       | medium (10"x10")         |
+| # of Board Layers     | 12to15 (12 to 15 Layers) |
+| Board Temperature (C) | 25.0                     |
++-----------------------+--------------------------+
+
+
+2.2 Clock Constraints
+---------------------
+
++-------------+-----------+-----------------+
+| Clock       | Domain    | Constraint (ns) |
++-------------+-----------+-----------------+
+| sys_clk_pin | CLK100MHZ |            10.0 |
++-------------+-----------+-----------------+
+
+
+3. Detailed Reports
+-------------------
+
+3.1 By Hierarchy
+----------------
+
++------------------------+-----------+
+| Name                   | Power (W) |
++------------------------+-----------+
+| pe_array               |     0.912 |
+|   g_pe[0].g_dsp.u_pe   |     0.002 |
+|   g_pe[0].u_lfsr       |    <0.001 |
+|   g_pe[100].g_dsp.u_pe |     0.003 |
+|   g_pe[100].u_lfsr     |    <0.001 |
+|   g_pe[101].g_dsp.u_pe |     0.004 |
+|   g_pe[101].u_lfsr     |    <0.001 |
+|   g_pe[102].g_dsp.u_pe |     0.002 |
+|   g_pe[102].u_lfsr     |    <0.001 |
+|   g_pe[103].g_dsp.u_pe |     0.002 |
+|   g_pe[103].u_lfsr     |    <0.001 |
+|   g_pe[104].g_dsp.u_pe |     0.002 |
+|   g_pe[104].u_lfsr     |    <0.001 |
+|   g_pe[105].g_dsp.u_pe |     0.002 |
+|   g_pe[105].u_lfsr     |    <0.001 |
+|   g_pe[106].g_dsp.u_pe |     0.002 |
+|   g_pe[106].u_lfsr     |    <0.001 |
+|   g_pe[107].g_dsp.u_pe |     0.002 |
+|   g_pe[107].u_lfsr     |    <0.001 |
+|   g_pe[108].g_dsp.u_pe |     0.003 |
+|   g_pe[108].u_lfsr     |    <0.001 |
+|   g_pe[109].g_dsp.u_pe |     0.002 |
+|   g_pe[109].u_lfsr     |    <0.001 |
+|   g_pe[10].g_dsp.u_pe  |     0.002 |
+|   g_pe[10].u_lfsr      |    <0.001 |
+|   g_pe[110].g_dsp.u_pe |     0.002 |
+|   g_pe[110].u_lfsr     |    <0.001 |
+|   g_pe[111].g_dsp.u_pe |     0.002 |
+|   g_pe[111].u_lfsr     |    <0.001 |
+|   g_pe[112].g_dsp.u_pe |     0.001 |
+|   g_pe[112].u_lfsr     |    <0.001 |
+|   g_pe[113].g_dsp.u_pe |     0.001 |
+|   g_pe[113].u_lfsr     |    <0.001 |
+|   g_pe[114].g_dsp.u_pe |     0.001 |
+|   g_pe[114].u_lfsr     |    <0.001 |
+|   g_pe[115].g_dsp.u_pe |     0.001 |
+|   g_pe[115].u_lfsr     |    <0.001 |
+|   g_pe[116].g_dsp.u_pe |     0.002 |
+|   g_pe[116].u_lfsr     |    <0.001 |
+|   g_pe[117].g_dsp.u_pe |     0.002 |
+|   g_pe[117].u_lfsr     |    <0.001 |
+|   g_pe[118].g_dsp.u_pe |     0.001 |
+|   g_pe[118].u_lfsr     |    <0.001 |
+|   g_pe[119].g_dsp.u_pe |     0.001 |
+|   g_pe[119].u_lfsr     |    <0.001 |
+|   g_pe[11].g_dsp.u_pe  |     0.002 |
+|   g_pe[11].u_lfsr      |    <0.001 |
+|   g_pe[120].g_dsp.u_pe |     0.001 |
+|   g_pe[120].u_lfsr     |    <0.001 |
+|   g_pe[121].g_dsp.u_pe |     0.001 |
+|   g_pe[121].u_lfsr     |    <0.001 |
+|   g_pe[122].g_dsp.u_pe |     0.001 |
+|   g_pe[122].u_lfsr     |    <0.001 |
+|   g_pe[123].g_dsp.u_pe |     0.001 |
+|   g_pe[123].u_lfsr     |    <0.001 |
+|   g_pe[124].g_dsp.u_pe |     0.002 |
+|   g_pe[124].u_lfsr     |    <0.001 |
+|   g_pe[125].g_dsp.u_pe |     0.001 |
+|   g_pe[125].u_lfsr     |    <0.001 |
+|   g_pe[126].g_dsp.u_pe |     0.001 |
+|   g_pe[126].u_lfsr     |    <0.001 |
+|   g_pe[127].g_dsp.u_pe |     0.001 |
+|   g_pe[127].u_lfsr     |    <0.001 |
+|   g_pe[128].g_dsp.u_pe |     0.001 |
+|   g_pe[128].u_lfsr     |    <0.001 |
+|   g_pe[129].g_dsp.u_pe |     0.001 |
+|   g_pe[129].u_lfsr     |    <0.001 |
+|   g_pe[12].g_dsp.u_pe  |     0.003 |
+|   g_pe[12].u_lfsr      |    <0.001 |
+|   g_pe[130].g_dsp.u_pe |     0.001 |
+|   g_pe[130].u_lfsr     |    <0.001 |
+|   g_pe[131].g_dsp.u_pe |     0.001 |
+|   g_pe[131].u_lfsr     |    <0.001 |
+|   g_pe[132].g_dsp.u_pe |     0.002 |
+|   g_pe[132].u_lfsr     |    <0.001 |
+|   g_pe[133].g_dsp.u_pe |     0.002 |
+|   g_pe[133].u_lfsr     |    <0.001 |
+|   g_pe[134].g_dsp.u_pe |     0.001 |
+|   g_pe[134].u_lfsr     |    <0.001 |
+|   g_pe[135].g_dsp.u_pe |     0.001 |
+|   g_pe[135].u_lfsr     |    <0.001 |
+|   g_pe[136].g_dsp.u_pe |     0.001 |
+|   g_pe[136].u_lfsr     |    <0.001 |
+|   g_pe[137].g_dsp.u_pe |     0.001 |
+|   g_pe[137].u_lfsr     |    <0.001 |
+|   g_pe[138].g_dsp.u_pe |     0.001 |
+|   g_pe[138].u_lfsr     |    <0.001 |
+|   g_pe[139].g_dsp.u_pe |     0.001 |
+|   g_pe[139].u_lfsr     |    <0.001 |
+|   g_pe[13].g_dsp.u_pe  |     0.002 |
+|   g_pe[13].u_lfsr      |    <0.001 |
+|   g_pe[140].g_dsp.u_pe |     0.002 |
+|   g_pe[140].u_lfsr     |    <0.001 |
+|   g_pe[141].g_dsp.u_pe |     0.001 |
+|   g_pe[141].u_lfsr     |    <0.001 |
+|   g_pe[142].g_dsp.u_pe |     0.001 |
+|   g_pe[142].u_lfsr     |    <0.001 |
+|   g_pe[143].g_dsp.u_pe |     0.001 |
+|   g_pe[143].u_lfsr     |    <0.001 |
+|   g_pe[144].g_dsp.u_pe |     0.002 |
+|   g_pe[144].u_lfsr     |    <0.001 |
+|   g_pe[145].g_dsp.u_pe |     0.002 |
+|   g_pe[145].u_lfsr     |    <0.001 |
+|   g_pe[146].g_dsp.u_pe |     0.002 |
+|   g_pe[146].u_lfsr     |    <0.001 |
+|   g_pe[147].g_dsp.u_pe |     0.002 |
+|   g_pe[147].u_lfsr     |    <0.001 |
+|   g_pe[148].g_dsp.u_pe |     0.003 |
+|   g_pe[148].u_lfsr     |    <0.001 |
+|   g_pe[149].g_dsp.u_pe |     0.004 |
+|   g_pe[149].u_lfsr     |    <0.001 |
+|   g_pe[14].g_dsp.u_pe  |     0.002 |
+|   g_pe[14].u_lfsr      |    <0.001 |
+|   g_pe[150].g_dsp.u_pe |     0.002 |
+|   g_pe[150].u_lfsr     |    <0.001 |
+|   g_pe[151].g_dsp.u_pe |     0.002 |
+|   g_pe[151].u_lfsr     |    <0.001 |
+|   g_pe[152].g_dsp.u_pe |     0.002 |
+|   g_pe[152].u_lfsr     |    <0.001 |
+|   g_pe[153].g_dsp.u_pe |     0.002 |
+|   g_pe[153].u_lfsr     |    <0.001 |
+|   g_pe[154].g_dsp.u_pe |     0.002 |
+|   g_pe[154].u_lfsr     |    <0.001 |
+|   g_pe[155].g_dsp.u_pe |     0.002 |
+|   g_pe[155].u_lfsr     |    <0.001 |
+|   g_pe[156].g_dsp.u_pe |     0.003 |
+|   g_pe[156].u_lfsr     |    <0.001 |
+|   g_pe[157].g_dsp.u_pe |     0.002 |
+|   g_pe[157].u_lfsr     |    <0.001 |
+|   g_pe[158].g_dsp.u_pe |     0.002 |
+|   g_pe[158].u_lfsr     |    <0.001 |
+|   g_pe[159].g_dsp.u_pe |     0.002 |
+|   g_pe[159].u_lfsr     |    <0.001 |
+|   g_pe[15].g_dsp.u_pe  |     0.002 |
+|   g_pe[15].u_lfsr      |    <0.001 |
+|   g_pe[160].g_dsp.u_pe |     0.001 |
+|   g_pe[160].u_lfsr     |    <0.001 |
+|   g_pe[161].g_dsp.u_pe |     0.001 |
+|   g_pe[161].u_lfsr     |    <0.001 |
+|   g_pe[162].g_dsp.u_pe |     0.001 |
+|   g_pe[162].u_lfsr     |    <0.001 |
+|   g_pe[163].g_dsp.u_pe |     0.001 |
+|   g_pe[163].u_lfsr     |    <0.001 |
+|   g_pe[164].g_dsp.u_pe |     0.002 |
+|   g_pe[164].u_lfsr     |    <0.001 |
+|   g_pe[165].g_dsp.u_pe |     0.002 |
+|   g_pe[165].u_lfsr     |    <0.001 |
+|   g_pe[166].g_dsp.u_pe |     0.001 |
+|   g_pe[166].u_lfsr     |    <0.001 |
+|   g_pe[167].g_dsp.u_pe |     0.001 |
+|   g_pe[167].u_lfsr     |    <0.001 |
+|   g_pe[168].g_dsp.u_pe |     0.001 |
+|   g_pe[168].u_lfsr     |    <0.001 |
+|   g_pe[169].g_dsp.u_pe |     0.001 |
+|   g_pe[169].u_lfsr     |    <0.001 |
+|   g_pe[16].g_dsp.u_pe  |     0.002 |
+|   g_pe[16].u_lfsr      |    <0.001 |
+|   g_pe[170].g_dsp.u_pe |     0.001 |
+|   g_pe[170].u_lfsr     |    <0.001 |
+|   g_pe[171].g_dsp.u_pe |     0.001 |
+|   g_pe[171].u_lfsr     |    <0.001 |
+|   g_pe[172].g_dsp.u_pe |     0.002 |
+|   g_pe[172].u_lfsr     |    <0.001 |
+|   g_pe[173].g_dsp.u_pe |     0.001 |
+|   g_pe[173].u_lfsr     |    <0.001 |
+|   g_pe[174].g_dsp.u_pe |     0.001 |
+|   g_pe[174].u_lfsr     |    <0.001 |
+|   g_pe[175].g_dsp.u_pe |     0.001 |
+|   g_pe[175].u_lfsr     |    <0.001 |
+|   g_pe[176].g_dsp.u_pe |     0.002 |
+|   g_pe[176].u_lfsr     |    <0.001 |
+|   g_pe[177].g_dsp.u_pe |     0.002 |
+|   g_pe[177].u_lfsr     |    <0.001 |
+|   g_pe[178].g_dsp.u_pe |     0.002 |
+|   g_pe[178].u_lfsr     |    <0.001 |
+|   g_pe[179].g_dsp.u_pe |     0.002 |
+|   g_pe[179].u_lfsr     |    <0.001 |
+|   g_pe[17].g_dsp.u_pe  |     0.002 |
+|   g_pe[17].u_lfsr      |    <0.001 |
+|   g_pe[180].g_dsp.u_pe |     0.003 |
+|   g_pe[180].u_lfsr     |    <0.001 |
+|   g_pe[181].g_dsp.u_pe |     0.003 |
+|   g_pe[181].u_lfsr     |    <0.001 |
+|   g_pe[182].g_dsp.u_pe |     0.002 |
+|   g_pe[182].u_lfsr     |    <0.001 |
+|   g_pe[183].g_dsp.u_pe |     0.002 |
+|   g_pe[183].u_lfsr     |    <0.001 |
+|   g_pe[184].g_dsp.u_pe |     0.002 |
+|   g_pe[184].u_lfsr     |    <0.001 |
+|   g_pe[185].g_dsp.u_pe |     0.002 |
+|   g_pe[185].u_lfsr     |    <0.001 |
+|   g_pe[186].g_dsp.u_pe |     0.002 |
+|   g_pe[186].u_lfsr     |    <0.001 |
+|   g_pe[187].g_dsp.u_pe |     0.002 |
+|   g_pe[187].u_lfsr     |    <0.001 |
+|   g_pe[188].g_dsp.u_pe |     0.003 |
+|   g_pe[188].u_lfsr     |    <0.001 |
+|   g_pe[189].g_dsp.u_pe |     0.002 |
+|   g_pe[189].u_lfsr     |    <0.001 |
+|   g_pe[18].g_dsp.u_pe  |     0.002 |
+|   g_pe[18].u_lfsr      |    <0.001 |
+|   g_pe[190].g_dsp.u_pe |     0.002 |
+|   g_pe[190].u_lfsr     |    <0.001 |
+|   g_pe[191].g_dsp.u_pe |     0.002 |
+|   g_pe[191].u_lfsr     |    <0.001 |
+|   g_pe[192].g_dsp.u_pe |     0.002 |
+|   g_pe[192].u_lfsr     |    <0.001 |
+|   g_pe[193].g_dsp.u_pe |     0.002 |
+|   g_pe[193].u_lfsr     |    <0.001 |
+|   g_pe[194].g_dsp.u_pe |     0.002 |
+|   g_pe[194].u_lfsr     |    <0.001 |
+|   g_pe[195].g_dsp.u_pe |     0.002 |
+|   g_pe[195].u_lfsr     |    <0.001 |
+|   g_pe[196].g_dsp.u_pe |     0.003 |
+|   g_pe[196].u_lfsr     |    <0.001 |
+|   g_pe[197].g_dsp.u_pe |     0.003 |
+|   g_pe[197].u_lfsr     |    <0.001 |
+|   g_pe[198].g_dsp.u_pe |     0.002 |
+|   g_pe[198].u_lfsr     |    <0.001 |
+|   g_pe[199].g_dsp.u_pe |     0.002 |
+|   g_pe[199].u_lfsr     |    <0.001 |
+|   g_pe[19].g_dsp.u_pe  |     0.002 |
+|   g_pe[19].u_lfsr      |    <0.001 |
+|   g_pe[1].g_dsp.u_pe   |     0.001 |
+|   g_pe[1].u_lfsr       |    <0.001 |
+|   g_pe[200].g_dsp.u_pe |     0.002 |
+|   g_pe[200].u_lfsr     |    <0.001 |
+|   g_pe[201].g_dsp.u_pe |     0.002 |
+|   g_pe[201].u_lfsr     |    <0.001 |
+|   g_pe[202].g_dsp.u_pe |     0.002 |
+|   g_pe[202].u_lfsr     |    <0.001 |
+|   g_pe[203].g_dsp.u_pe |     0.002 |
+|   g_pe[203].u_lfsr     |    <0.001 |
+|   g_pe[204].g_dsp.u_pe |     0.003 |
+|   g_pe[204].u_lfsr     |    <0.001 |
+|   g_pe[205].g_dsp.u_pe |     0.002 |
+|   g_pe[205].u_lfsr     |    <0.001 |
+|   g_pe[206].g_dsp.u_pe |     0.002 |
+|   g_pe[206].u_lfsr     |    <0.001 |
+|   g_pe[207].g_dsp.u_pe |     0.002 |
+|   g_pe[207].u_lfsr     |    <0.001 |
+|   g_pe[208].g_dsp.u_pe |     0.002 |
+|   g_pe[208].u_lfsr     |    <0.001 |
+|   g_pe[209].g_dsp.u_pe |     0.002 |
+|   g_pe[209].u_lfsr     |    <0.001 |
+|   g_pe[20].g_dsp.u_pe  |     0.003 |
+|   g_pe[20].u_lfsr      |    <0.001 |
+|   g_pe[210].g_dsp.u_pe |     0.002 |
+|   g_pe[210].u_lfsr     |    <0.001 |
+|   g_pe[211].g_dsp.u_pe |     0.002 |
+|   g_pe[211].u_lfsr     |    <0.001 |
+|   g_pe[212].g_dsp.u_pe |     0.003 |
+|   g_pe[212].u_lfsr     |    <0.001 |
+|   g_pe[213].g_dsp.u_pe |     0.004 |
+|   g_pe[213].u_lfsr     |    <0.001 |
+|   g_pe[214].g_dsp.u_pe |     0.002 |
+|   g_pe[214].u_lfsr     |    <0.001 |
+|   g_pe[215].g_dsp.u_pe |     0.002 |
+|   g_pe[215].u_lfsr     |    <0.001 |
+|   g_pe[216].g_dsp.u_pe |     0.002 |
+|   g_pe[216].u_lfsr     |    <0.001 |
+|   g_pe[217].g_dsp.u_pe |     0.002 |
+|   g_pe[217].u_lfsr     |    <0.001 |
+|   g_pe[218].g_dsp.u_pe |     0.002 |
+|   g_pe[218].u_lfsr     |    <0.001 |
+|   g_pe[219].g_dsp.u_pe |     0.002 |
+|   g_pe[219].u_lfsr     |    <0.001 |
+|   g_pe[21].g_dsp.u_pe  |     0.003 |
+|   g_pe[21].u_lfsr      |    <0.001 |
+|   g_pe[220].g_dsp.u_pe |     0.004 |
+|   g_pe[220].u_lfsr     |    <0.001 |
+|   g_pe[221].g_dsp.u_pe |     0.002 |
+|   g_pe[221].u_lfsr     |    <0.001 |
+|   g_pe[222].g_dsp.u_pe |     0.002 |
+|   g_pe[222].u_lfsr     |    <0.001 |
+|   g_pe[223].g_dsp.u_pe |     0.002 |
+|   g_pe[223].u_lfsr     |    <0.001 |
+|   g_pe[224].g_dsp.u_pe |     0.001 |
+|   g_pe[224].u_lfsr     |    <0.001 |
+|   g_pe[225].g_dsp.u_pe |     0.001 |
+|   g_pe[225].u_lfsr     |    <0.001 |
+|   g_pe[226].g_dsp.u_pe |     0.001 |
+|   g_pe[226].u_lfsr     |    <0.001 |
+|   g_pe[227].g_dsp.u_pe |     0.001 |
+|   g_pe[227].u_lfsr     |    <0.001 |
+|   g_pe[228].g_dsp.u_pe |     0.002 |
+|   g_pe[228].u_lfsr     |    <0.001 |
+|   g_pe[229].g_dsp.u_pe |     0.002 |
+|   g_pe[229].u_lfsr     |    <0.001 |
+|   g_pe[22].g_dsp.u_pe  |     0.001 |
+|   g_pe[22].u_lfsr      |    <0.001 |
+|   g_pe[230].g_dsp.u_pe |     0.001 |
+|   g_pe[230].u_lfsr     |    <0.001 |
+|   g_pe[231].g_dsp.u_pe |     0.001 |
+|   g_pe[231].u_lfsr     |    <0.001 |
+|   g_pe[232].g_dsp.u_pe |     0.001 |
+|   g_pe[232].u_lfsr     |    <0.001 |
+|   g_pe[233].g_dsp.u_pe |     0.001 |
+|   g_pe[233].u_lfsr     |    <0.001 |
+|   g_pe[234].g_dsp.u_pe |     0.001 |
+|   g_pe[234].u_lfsr     |    <0.001 |
+|   g_pe[235].g_dsp.u_pe |     0.001 |
+|   g_pe[235].u_lfsr     |    <0.001 |
+|   g_pe[236].g_dsp.u_pe |     0.002 |
+|   g_pe[236].u_lfsr     |    <0.001 |
+|   g_pe[237].g_dsp.u_pe |     0.001 |
+|   g_pe[237].u_lfsr     |    <0.001 |
+|   g_pe[238].g_dsp.u_pe |     0.001 |
+|   g_pe[238].u_lfsr     |    <0.001 |
+|   g_pe[239].g_dsp.u_pe |     0.002 |
+|   g_pe[239].u_lfsr     |    <0.001 |
+|   g_pe[23].g_dsp.u_pe  |     0.001 |
+|   g_pe[23].u_lfsr      |    <0.001 |
+|   g_pe[240].g_dsp.u_pe |     0.002 |
+|   g_pe[240].u_lfsr     |    <0.001 |
+|   g_pe[241].g_dsp.u_pe |     0.002 |
+|   g_pe[241].u_lfsr     |    <0.001 |
+|   g_pe[242].g_dsp.u_pe |     0.002 |
+|   g_pe[242].u_lfsr     |    <0.001 |
+|   g_pe[243].g_dsp.u_pe |     0.002 |
+|   g_pe[243].u_lfsr     |    <0.001 |
+|   g_pe[244].g_dsp.u_pe |     0.003 |
+|   g_pe[244].u_lfsr     |    <0.001 |
+|   g_pe[245].g_dsp.u_pe |     0.005 |
+|   g_pe[245].u_lfsr     |    <0.001 |
+|   g_pe[246].g_dsp.u_pe |     0.002 |
+|   g_pe[246].u_lfsr     |    <0.001 |
+|   g_pe[247].g_dsp.u_pe |     0.002 |
+|   g_pe[247].u_lfsr     |    <0.001 |
+|   g_pe[248].g_dsp.u_pe |     0.002 |
+|   g_pe[248].u_lfsr     |    <0.001 |
+|   g_pe[249].g_dsp.u_pe |     0.002 |
+|   g_pe[249].u_lfsr     |    <0.001 |
+|   g_pe[24].g_dsp.u_pe  |     0.001 |
+|   g_pe[24].u_lfsr      |    <0.001 |
+|   g_pe[250].g_dsp.u_pe |     0.002 |
+|   g_pe[250].u_lfsr     |    <0.001 |
+|   g_pe[251].g_dsp.u_pe |     0.002 |
+|   g_pe[251].u_lfsr     |    <0.001 |
+|   g_pe[252].g_dsp.u_pe |     0.004 |
+|   g_pe[252].u_lfsr     |    <0.001 |
+|   g_pe[253].g_dsp.u_pe |     0.002 |
+|   g_pe[253].u_lfsr     |    <0.001 |
+|   g_pe[254].g_dsp.u_pe |     0.002 |
+|   g_pe[254].u_lfsr     |    <0.001 |
+|   g_pe[255].g_dsp.u_pe |     0.002 |
+|   g_pe[255].u_lfsr     |    <0.001 |
+|   g_pe[256].g_dsp.u_pe |     0.002 |
+|   g_pe[256].u_lfsr     |    <0.001 |
+|   g_pe[257].g_dsp.u_pe |     0.002 |
+|   g_pe[257].u_lfsr     |    <0.001 |
+|   g_pe[258].g_dsp.u_pe |     0.002 |
+|   g_pe[258].u_lfsr     |    <0.001 |
+|   g_pe[259].g_dsp.u_pe |     0.002 |
+|   g_pe[259].u_lfsr     |    <0.001 |
+|   g_pe[25].g_dsp.u_pe  |     0.001 |
+|   g_pe[25].u_lfsr      |    <0.001 |
+|   g_pe[260].g_dsp.u_pe |     0.003 |
+|   g_pe[260].u_lfsr     |    <0.001 |
+|   g_pe[261].g_dsp.u_pe |     0.004 |
+|   g_pe[261].u_lfsr     |    <0.001 |
+|   g_pe[262].g_dsp.u_pe |     0.002 |
+|   g_pe[262].u_lfsr     |    <0.001 |
+|   g_pe[263].g_dsp.u_pe |     0.002 |
+|   g_pe[263].u_lfsr     |    <0.001 |
+|   g_pe[264].g_dsp.u_pe |     0.002 |
+|   g_pe[264].u_lfsr     |    <0.001 |
+|   g_pe[265].g_dsp.u_pe |     0.002 |
+|   g_pe[265].u_lfsr     |    <0.001 |
+|   g_pe[266].g_dsp.u_pe |     0.002 |
+|   g_pe[266].u_lfsr     |    <0.001 |
+|   g_pe[267].g_dsp.u_pe |     0.002 |
+|   g_pe[267].u_lfsr     |    <0.001 |
+|   g_pe[268].g_dsp.u_pe |     0.004 |
+|   g_pe[268].u_lfsr     |    <0.001 |
+|   g_pe[269].g_dsp.u_pe |     0.002 |
+|   g_pe[269].u_lfsr     |    <0.001 |
+|   g_pe[26].g_dsp.u_pe  |     0.001 |
+|   g_pe[26].u_lfsr      |    <0.001 |
+|   g_pe[270].g_dsp.u_pe |     0.002 |
+|   g_pe[270].u_lfsr     |    <0.001 |
+|   g_pe[271].g_dsp.u_pe |     0.002 |
+|   g_pe[271].u_lfsr     |    <0.001 |
+|   g_pe[272].g_dsp.u_pe |     0.002 |
+|   g_pe[272].u_lfsr     |    <0.001 |
+|   g_pe[273].g_dsp.u_pe |     0.002 |
+|   g_pe[273].u_lfsr     |    <0.001 |
+|   g_pe[274].g_dsp.u_pe |     0.002 |
+|   g_pe[274].u_lfsr     |    <0.001 |
+|   g_pe[275].g_dsp.u_pe |     0.002 |
+|   g_pe[275].u_lfsr     |    <0.001 |
+|   g_pe[276].g_dsp.u_pe |     0.003 |
+|   g_pe[276].u_lfsr     |    <0.001 |
+|   g_pe[277].g_dsp.u_pe |     0.004 |
+|   g_pe[277].u_lfsr     |    <0.001 |
+|   g_pe[278].g_dsp.u_pe |     0.002 |
+|   g_pe[278].u_lfsr     |    <0.001 |
+|   g_pe[279].g_dsp.u_pe |     0.002 |
+|   g_pe[279].u_lfsr     |    <0.001 |
+|   g_pe[27].g_dsp.u_pe  |     0.001 |
+|   g_pe[27].u_lfsr      |    <0.001 |
+|   g_pe[280].g_dsp.u_pe |     0.002 |
+|   g_pe[280].u_lfsr     |    <0.001 |
+|   g_pe[281].g_dsp.u_pe |     0.002 |
+|   g_pe[281].u_lfsr     |    <0.001 |
+|   g_pe[282].g_dsp.u_pe |     0.002 |
+|   g_pe[282].u_lfsr     |    <0.001 |
+|   g_pe[283].g_dsp.u_pe |     0.002 |
+|   g_pe[283].u_lfsr     |    <0.001 |
+|   g_pe[284].g_dsp.u_pe |     0.004 |
+|   g_pe[284].u_lfsr     |    <0.001 |
+|   g_pe[285].g_dsp.u_pe |     0.002 |
+|   g_pe[285].u_lfsr     |    <0.001 |
+|   g_pe[286].g_dsp.u_pe |     0.002 |
+|   g_pe[286].u_lfsr     |    <0.001 |
+|   g_pe[287].g_dsp.u_pe |     0.002 |
+|   g_pe[287].u_lfsr     |    <0.001 |
+|   g_pe[288].g_dsp.u_pe |     0.002 |
+|   g_pe[288].u_lfsr     |    <0.001 |
+|   g_pe[289].g_dsp.u_pe |     0.002 |
+|   g_pe[289].u_lfsr     |    <0.001 |
+|   g_pe[28].g_dsp.u_pe  |     0.002 |
+|   g_pe[28].u_lfsr      |    <0.001 |
+|   g_pe[290].g_dsp.u_pe |     0.002 |
+|   g_pe[290].u_lfsr     |    <0.001 |
+|   g_pe[291].g_dsp.u_pe |     0.002 |
+|   g_pe[291].u_lfsr     |    <0.001 |
+|   g_pe[292].g_dsp.u_pe |     0.003 |
+|   g_pe[292].u_lfsr     |    <0.001 |
+|   g_pe[293].g_dsp.u_pe |     0.003 |
+|   g_pe[293].u_lfsr     |    <0.001 |
+|   g_pe[294].g_dsp.u_pe |     0.002 |
+|   g_pe[294].u_lfsr     |    <0.001 |
+|   g_pe[295].g_dsp.u_pe |     0.002 |
+|   g_pe[295].u_lfsr     |    <0.001 |
+|   g_pe[296].g_dsp.u_pe |     0.002 |
+|   g_pe[296].u_lfsr     |    <0.001 |
+|   g_pe[297].g_dsp.u_pe |     0.002 |
+|   g_pe[297].u_lfsr     |    <0.001 |
+|   g_pe[298].g_dsp.u_pe |     0.002 |
+|   g_pe[298].u_lfsr     |    <0.001 |
+|   g_pe[299].g_dsp.u_pe |     0.002 |
+|   g_pe[299].u_lfsr     |    <0.001 |
+|   g_pe[29].g_dsp.u_pe  |     0.001 |
+|   g_pe[29].u_lfsr      |    <0.001 |
+|   g_pe[2].g_dsp.u_pe   |     0.001 |
+|   g_pe[2].u_lfsr       |    <0.001 |
+|   g_pe[300].g_dsp.u_pe |     0.003 |
+|   g_pe[300].u_lfsr     |    <0.001 |
+|   g_pe[301].g_dsp.u_pe |     0.002 |
+|   g_pe[301].u_lfsr     |    <0.001 |
+|   g_pe[302].g_dsp.u_pe |     0.002 |
+|   g_pe[302].u_lfsr     |    <0.001 |
+|   g_pe[303].g_dsp.u_pe |     0.002 |
+|   g_pe[303].u_lfsr     |    <0.001 |
+|   g_pe[304].g_dsp.u_pe |     0.002 |
+|   g_pe[304].u_lfsr     |    <0.001 |
+|   g_pe[305].g_dsp.u_pe |     0.002 |
+|   g_pe[305].u_lfsr     |    <0.001 |
+|   g_pe[306].g_dsp.u_pe |     0.002 |
+|   g_pe[306].u_lfsr     |    <0.001 |
+|   g_pe[307].g_dsp.u_pe |     0.002 |
+|   g_pe[307].u_lfsr     |    <0.001 |
+|   g_pe[308].g_dsp.u_pe |     0.003 |
+|   g_pe[308].u_lfsr     |    <0.001 |
+|   g_pe[309].g_dsp.u_pe |     0.004 |
+|   g_pe[309].u_lfsr     |    <0.001 |
+|   g_pe[30].g_dsp.u_pe  |     0.001 |
+|   g_pe[30].u_lfsr      |    <0.001 |
+|   g_pe[310].g_dsp.u_pe |     0.002 |
+|   g_pe[310].u_lfsr     |    <0.001 |
+|   g_pe[311].g_dsp.u_pe |     0.002 |
+|   g_pe[311].u_lfsr     |    <0.001 |
+|   g_pe[312].g_dsp.u_pe |     0.002 |
+|   g_pe[312].u_lfsr     |    <0.001 |
+|   g_pe[313].g_dsp.u_pe |     0.002 |
+|   g_pe[313].u_lfsr     |    <0.001 |
+|   g_pe[314].g_dsp.u_pe |     0.002 |
+|   g_pe[314].u_lfsr     |    <0.001 |
+|   g_pe[315].g_dsp.u_pe |     0.002 |
+|   g_pe[315].u_lfsr     |    <0.001 |
+|   g_pe[316].g_dsp.u_pe |     0.003 |
+|   g_pe[316].u_lfsr     |    <0.001 |
+|   g_pe[317].g_dsp.u_pe |     0.002 |
+|   g_pe[317].u_lfsr     |    <0.001 |
+|   g_pe[318].g_dsp.u_pe |     0.002 |
+|   g_pe[318].u_lfsr     |    <0.001 |
+|   g_pe[319].g_dsp.u_pe |     0.002 |
+|   g_pe[319].u_lfsr     |    <0.001 |
+|   g_pe[31].g_dsp.u_pe  |     0.001 |
+|   g_pe[31].u_lfsr      |    <0.001 |
+|   g_pe[320].g_dsp.u_pe |     0.002 |
+|   g_pe[320].u_lfsr     |    <0.001 |
+|   g_pe[321].g_dsp.u_pe |     0.002 |
+|   g_pe[321].u_lfsr     |    <0.001 |
+|   g_pe[322].g_dsp.u_pe |     0.002 |
+|   g_pe[322].u_lfsr     |    <0.001 |
+|   g_pe[323].g_dsp.u_pe |     0.002 |
+|   g_pe[323].u_lfsr     |    <0.001 |
+|   g_pe[324].g_dsp.u_pe |     0.003 |
+|   g_pe[324].u_lfsr     |    <0.001 |
+|   g_pe[325].g_dsp.u_pe |     0.003 |
+|   g_pe[325].u_lfsr     |    <0.001 |
+|   g_pe[326].g_dsp.u_pe |     0.002 |
+|   g_pe[326].u_lfsr     |    <0.001 |
+|   g_pe[327].g_dsp.u_pe |     0.002 |
+|   g_pe[327].u_lfsr     |    <0.001 |
+|   g_pe[328].g_dsp.u_pe |     0.002 |
+|   g_pe[328].u_lfsr     |    <0.001 |
+|   g_pe[329].g_dsp.u_pe |     0.002 |
+|   g_pe[329].u_lfsr     |    <0.001 |
+|   g_pe[32].g_dsp.u_pe  |     0.001 |
+|   g_pe[32].u_lfsr      |    <0.001 |
+|   g_pe[330].g_dsp.u_pe |     0.002 |
+|   g_pe[330].u_lfsr     |    <0.001 |
+|   g_pe[331].g_dsp.u_pe |     0.002 |
+|   g_pe[331].u_lfsr     |    <0.001 |
+|   g_pe[332].g_dsp.u_pe |     0.004 |
+|   g_pe[332].u_lfsr     |    <0.001 |
+|   g_pe[333].g_dsp.u_pe |     0.002 |
+|   g_pe[333].u_lfsr     |    <0.001 |
+|   g_pe[334].g_dsp.u_pe |     0.002 |
+|   g_pe[334].u_lfsr     |    <0.001 |
+|   g_pe[335].g_dsp.u_pe |     0.002 |
+|   g_pe[335].u_lfsr     |    <0.001 |
+|   g_pe[336].g_dsp.u_pe |     0.002 |
+|   g_pe[336].u_lfsr     |    <0.001 |
+|   g_pe[337].g_dsp.u_pe |     0.002 |
+|   g_pe[337].u_lfsr     |    <0.001 |
+|   g_pe[338].g_dsp.u_pe |     0.002 |
+|   g_pe[338].u_lfsr     |    <0.001 |
+|   g_pe[339].g_dsp.u_pe |     0.002 |
+|   g_pe[339].u_lfsr     |    <0.001 |
+|   g_pe[33].g_dsp.u_pe  |     0.001 |
+|   g_pe[33].u_lfsr      |    <0.001 |
+|   g_pe[340].g_dsp.u_pe |     0.003 |
+|   g_pe[340].u_lfsr     |    <0.001 |
+|   g_pe[341].g_dsp.u_pe |     0.004 |
+|   g_pe[341].u_lfsr     |    <0.001 |
+|   g_pe[342].g_dsp.u_pe |     0.002 |
+|   g_pe[342].u_lfsr     |    <0.001 |
+|   g_pe[343].g_dsp.u_pe |     0.002 |
+|   g_pe[343].u_lfsr     |    <0.001 |
+|   g_pe[344].g_dsp.u_pe |     0.002 |
+|   g_pe[344].u_lfsr     |    <0.001 |
+|   g_pe[345].g_dsp.u_pe |     0.002 |
+|   g_pe[345].u_lfsr     |    <0.001 |
+|   g_pe[346].g_dsp.u_pe |     0.002 |
+|   g_pe[346].u_lfsr     |    <0.001 |
+|   g_pe[347].g_dsp.u_pe |     0.002 |
+|   g_pe[347].u_lfsr     |    <0.001 |
+|   g_pe[348].g_dsp.u_pe |     0.003 |
+|   g_pe[348].u_lfsr     |    <0.001 |
+|   g_pe[349].g_dsp.u_pe |     0.002 |
+|   g_pe[349].u_lfsr     |    <0.001 |
+|   g_pe[34].g_dsp.u_pe  |     0.001 |
+|   g_pe[34].u_lfsr      |    <0.001 |
+|   g_pe[350].g_dsp.u_pe |     0.002 |
+|   g_pe[350].u_lfsr     |    <0.001 |
+|   g_pe[351].g_dsp.u_pe |     0.002 |
+|   g_pe[351].u_lfsr     |    <0.001 |
+|   g_pe[352].g_dsp.u_pe |     0.002 |
+|   g_pe[352].u_lfsr     |    <0.001 |
+|   g_pe[353].g_dsp.u_pe |     0.002 |
+|   g_pe[353].u_lfsr     |    <0.001 |
+|   g_pe[354].g_dsp.u_pe |     0.002 |
+|   g_pe[354].u_lfsr     |    <0.001 |
+|   g_pe[355].g_dsp.u_pe |     0.002 |
+|   g_pe[355].u_lfsr     |    <0.001 |
+|   g_pe[356].g_dsp.u_pe |     0.003 |
+|   g_pe[356].u_lfsr     |    <0.001 |
+|   g_pe[357].g_dsp.u_pe |     0.003 |
+|   g_pe[357].u_lfsr     |    <0.001 |
+|   g_pe[358].g_dsp.u_pe |     0.002 |
+|   g_pe[358].u_lfsr     |    <0.001 |
+|   g_pe[359].g_dsp.u_pe |     0.002 |
+|   g_pe[359].u_lfsr     |    <0.001 |
+|   g_pe[35].g_dsp.u_pe  |     0.001 |
+|   g_pe[35].u_lfsr      |    <0.001 |
+|   g_pe[360].g_dsp.u_pe |     0.002 |
+|   g_pe[360].u_lfsr     |    <0.001 |
+|   g_pe[361].g_dsp.u_pe |     0.002 |
+|   g_pe[361].u_lfsr     |    <0.001 |
+|   g_pe[362].g_dsp.u_pe |     0.002 |
+|   g_pe[362].u_lfsr     |    <0.001 |
+|   g_pe[363].g_dsp.u_pe |     0.002 |
+|   g_pe[363].u_lfsr     |    <0.001 |
+|   g_pe[364].g_dsp.u_pe |     0.003 |
+|   g_pe[364].u_lfsr     |    <0.001 |
+|   g_pe[365].g_dsp.u_pe |     0.002 |
+|   g_pe[365].u_lfsr     |    <0.001 |
+|   g_pe[366].g_dsp.u_pe |     0.002 |
+|   g_pe[366].u_lfsr     |    <0.001 |
+|   g_pe[367].g_dsp.u_pe |     0.002 |
+|   g_pe[367].u_lfsr     |    <0.001 |
+|   g_pe[368].g_dsp.u_pe |     0.002 |
+|   g_pe[368].u_lfsr     |    <0.001 |
+|   g_pe[369].g_dsp.u_pe |     0.002 |
+|   g_pe[369].u_lfsr     |    <0.001 |
+|   g_pe[36].g_dsp.u_pe  |     0.002 |
+|   g_pe[36].u_lfsr      |    <0.001 |
+|   g_pe[370].g_dsp.u_pe |     0.002 |
+|   g_pe[370].u_lfsr     |    <0.001 |
+|   g_pe[371].g_dsp.u_pe |     0.003 |
+|   g_pe[371].u_lfsr     |    <0.001 |
+|   g_pe[372].g_dsp.u_pe |     0.002 |
+|   g_pe[372].u_lfsr     |    <0.001 |
+|   g_pe[373].g_dsp.u_pe |     0.002 |
+|   g_pe[373].u_lfsr     |    <0.001 |
+|   g_pe[374].g_dsp.u_pe |     0.004 |
+|   g_pe[374].u_lfsr     |    <0.001 |
+|   g_pe[375].g_dsp.u_pe |     0.002 |
+|   g_pe[375].u_lfsr     |    <0.001 |
+|   g_pe[37].g_dsp.u_pe  |     0.002 |
+|   g_pe[37].u_lfsr      |    <0.001 |
+|   g_pe[38].g_dsp.u_pe  |     0.001 |
+|   g_pe[38].u_lfsr      |    <0.001 |
+|   g_pe[39].g_dsp.u_pe  |     0.001 |
+|   g_pe[39].u_lfsr      |    <0.001 |
+|   g_pe[3].g_dsp.u_pe   |     0.001 |
+|   g_pe[3].u_lfsr       |    <0.001 |
+|   g_pe[40].g_dsp.u_pe  |     0.001 |
+|   g_pe[40].u_lfsr      |    <0.001 |
+|   g_pe[41].g_dsp.u_pe  |     0.001 |
+|   g_pe[41].u_lfsr      |    <0.001 |
+|   g_pe[42].g_dsp.u_pe  |     0.001 |
+|   g_pe[42].u_lfsr      |    <0.001 |
+|   g_pe[43].g_dsp.u_pe  |     0.001 |
+|   g_pe[43].u_lfsr      |    <0.001 |
+|   g_pe[44].g_dsp.u_pe  |     0.002 |
+|   g_pe[44].u_lfsr      |    <0.001 |
+|   g_pe[45].g_dsp.u_pe  |     0.001 |
+|   g_pe[45].u_lfsr      |    <0.001 |
+|   g_pe[46].g_dsp.u_pe  |     0.001 |
+|   g_pe[46].u_lfsr      |    <0.001 |
+|   g_pe[47].g_dsp.u_pe  |     0.001 |
+|   g_pe[47].u_lfsr      |    <0.001 |
+|   g_pe[48].g_dsp.u_pe  |     0.001 |
+|   g_pe[48].u_lfsr      |    <0.001 |
+|   g_pe[49].g_dsp.u_pe  |     0.001 |
+|   g_pe[49].u_lfsr      |    <0.001 |
+|   g_pe[4].g_dsp.u_pe   |     0.002 |
+|   g_pe[4].u_lfsr       |    <0.001 |
+|   g_pe[50].g_dsp.u_pe  |     0.001 |
+|   g_pe[50].u_lfsr      |    <0.001 |
+|   g_pe[51].g_dsp.u_pe  |     0.001 |
+|   g_pe[51].u_lfsr      |    <0.001 |
+|   g_pe[52].g_dsp.u_pe  |     0.002 |
+|   g_pe[52].u_lfsr      |    <0.001 |
+|   g_pe[53].g_dsp.u_pe  |     0.002 |
+|   g_pe[53].u_lfsr      |    <0.001 |
+|   g_pe[54].g_dsp.u_pe  |     0.001 |
+|   g_pe[54].u_lfsr      |    <0.001 |
+|   g_pe[55].g_dsp.u_pe  |     0.001 |
+|   g_pe[55].u_lfsr      |    <0.001 |
+|   g_pe[56].g_dsp.u_pe  |     0.001 |
+|   g_pe[56].u_lfsr      |    <0.001 |
+|   g_pe[57].g_dsp.u_pe  |     0.001 |
+|   g_pe[57].u_lfsr      |    <0.001 |
+|   g_pe[58].g_dsp.u_pe  |     0.001 |
+|   g_pe[58].u_lfsr      |    <0.001 |
+|   g_pe[59].g_dsp.u_pe  |     0.001 |
+|   g_pe[59].u_lfsr      |    <0.001 |
+|   g_pe[5].g_dsp.u_pe   |     0.002 |
+|   g_pe[5].u_lfsr       |    <0.001 |
+|   g_pe[60].g_dsp.u_pe  |     0.002 |
+|   g_pe[60].u_lfsr      |    <0.001 |
+|   g_pe[61].g_dsp.u_pe  |     0.001 |
+|   g_pe[61].u_lfsr      |    <0.001 |
+|   g_pe[62].g_dsp.u_pe  |     0.001 |
+|   g_pe[62].u_lfsr      |    <0.001 |
+|   g_pe[63].g_dsp.u_pe  |     0.001 |
+|   g_pe[63].u_lfsr      |    <0.001 |
+|   g_pe[64].g_dsp.u_pe  |     0.001 |
+|   g_pe[64].u_lfsr      |    <0.001 |
+|   g_pe[65].g_dsp.u_pe  |     0.001 |
+|   g_pe[65].u_lfsr      |    <0.001 |
+|   g_pe[66].g_dsp.u_pe  |     0.001 |
+|   g_pe[66].u_lfsr      |    <0.001 |
+|   g_pe[67].g_dsp.u_pe  |     0.001 |
+|   g_pe[67].u_lfsr      |    <0.001 |
+|   g_pe[68].g_dsp.u_pe  |     0.002 |
+|   g_pe[68].u_lfsr      |    <0.001 |
+|   g_pe[69].g_dsp.u_pe  |     0.002 |
+|   g_pe[69].u_lfsr      |    <0.001 |
+|   g_pe[6].g_dsp.u_pe   |     0.001 |
+|   g_pe[6].u_lfsr       |    <0.001 |
+|   g_pe[70].g_dsp.u_pe  |     0.001 |
+|   g_pe[70].u_lfsr      |    <0.001 |
+|   g_pe[71].g_dsp.u_pe  |     0.001 |
+|   g_pe[71].u_lfsr      |    <0.001 |
+|   g_pe[72].g_dsp.u_pe  |     0.001 |
+|   g_pe[72].u_lfsr      |    <0.001 |
+|   g_pe[73].g_dsp.u_pe  |     0.001 |
+|   g_pe[73].u_lfsr      |    <0.001 |
+|   g_pe[74].g_dsp.u_pe  |     0.001 |
+|   g_pe[74].u_lfsr      |    <0.001 |
+|   g_pe[75].g_dsp.u_pe  |     0.001 |
+|   g_pe[75].u_lfsr      |    <0.001 |
+|   g_pe[76].g_dsp.u_pe  |     0.002 |
+|   g_pe[76].u_lfsr      |    <0.001 |
+|   g_pe[77].g_dsp.u_pe  |     0.001 |
+|   g_pe[77].u_lfsr      |    <0.001 |
+|   g_pe[78].g_dsp.u_pe  |     0.001 |
+|   g_pe[78].u_lfsr      |    <0.001 |
+|   g_pe[79].g_dsp.u_pe  |     0.001 |
+|   g_pe[79].u_lfsr      |    <0.001 |
+|   g_pe[7].g_dsp.u_pe   |     0.002 |
+|   g_pe[7].u_lfsr       |    <0.001 |
+|   g_pe[80].g_dsp.u_pe  |     0.001 |
+|   g_pe[80].u_lfsr      |    <0.001 |
+|   g_pe[81].g_dsp.u_pe  |     0.001 |
+|   g_pe[81].u_lfsr      |    <0.001 |
+|   g_pe[82].g_dsp.u_pe  |     0.001 |
+|   g_pe[82].u_lfsr      |    <0.001 |
+|   g_pe[83].g_dsp.u_pe  |     0.001 |
+|   g_pe[83].u_lfsr      |    <0.001 |
+|   g_pe[84].g_dsp.u_pe  |     0.002 |
+|   g_pe[84].u_lfsr      |    <0.001 |
+|   g_pe[85].g_dsp.u_pe  |     0.002 |
+|   g_pe[85].u_lfsr      |    <0.001 |
+|   g_pe[86].g_dsp.u_pe  |     0.001 |
+|   g_pe[86].u_lfsr      |    <0.001 |
+|   g_pe[87].g_dsp.u_pe  |     0.001 |
+|   g_pe[87].u_lfsr      |    <0.001 |
+|   g_pe[88].g_dsp.u_pe  |     0.001 |
+|   g_pe[88].u_lfsr      |    <0.001 |
+|   g_pe[89].g_dsp.u_pe  |     0.002 |
+|   g_pe[89].u_lfsr      |    <0.001 |
+|   g_pe[8].g_dsp.u_pe   |     0.002 |
+|   g_pe[8].u_lfsr       |    <0.001 |
+|   g_pe[90].g_dsp.u_pe  |     0.002 |
+|   g_pe[90].u_lfsr      |    <0.001 |
+|   g_pe[91].g_dsp.u_pe  |     0.002 |
+|   g_pe[91].u_lfsr      |    <0.001 |
+|   g_pe[92].g_dsp.u_pe  |     0.004 |
+|   g_pe[92].u_lfsr      |    <0.001 |
+|   g_pe[93].g_dsp.u_pe  |     0.002 |
+|   g_pe[93].u_lfsr      |    <0.001 |
+|   g_pe[94].g_dsp.u_pe  |     0.002 |
+|   g_pe[94].u_lfsr      |    <0.001 |
+|   g_pe[95].g_dsp.u_pe  |     0.002 |
+|   g_pe[95].u_lfsr      |    <0.001 |
+|   g_pe[96].g_dsp.u_pe  |     0.002 |
+|   g_pe[96].u_lfsr      |    <0.001 |
+|   g_pe[97].g_dsp.u_pe  |     0.002 |
+|   g_pe[97].u_lfsr      |    <0.001 |
+|   g_pe[98].g_dsp.u_pe  |     0.002 |
+|   g_pe[98].u_lfsr      |    <0.001 |
+|   g_pe[99].g_dsp.u_pe  |     0.002 |
+|   g_pe[99].u_lfsr      |    <0.001 |
+|   g_pe[9].g_dsp.u_pe   |     0.002 |
+|   g_pe[9].u_lfsr       |    <0.001 |
++------------------------+-----------+
+
+

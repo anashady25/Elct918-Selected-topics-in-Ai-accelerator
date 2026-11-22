@@ -1,0 +1,15 @@
+variant=dsp
+spad=0
+n_pe=128
+status=ROUTED
+lut=15416
+ff=12419
+dsp=128
+bram_tile=0
+ramb36=0
+ramb18=0
+wns=2.521
+power_total=0.460
+power_dynamic=0.362
+seconds=275
+message=

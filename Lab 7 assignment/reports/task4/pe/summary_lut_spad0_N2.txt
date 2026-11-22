@@ -1,0 +1,15 @@
+variant=lut
+spad=0
+n_pe=2
+status=ROUTED
+lut=421
+ff=360
+dsp=0
+bram_tile=0
+ramb36=0
+ramb18=0
+wns=2.633
+power_total=0.129
+power_dynamic=0.032
+seconds=63
+message=

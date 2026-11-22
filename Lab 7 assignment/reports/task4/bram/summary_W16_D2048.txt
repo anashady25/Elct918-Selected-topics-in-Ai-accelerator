@@ -1,0 +1,11 @@
+width=16
+depth=2048
+status=ROUTED
+lut=14
+ff=48
+bram_tile=1
+ramb36=1
+ramb18=0
+wns=6.557
+seconds=44
+message=

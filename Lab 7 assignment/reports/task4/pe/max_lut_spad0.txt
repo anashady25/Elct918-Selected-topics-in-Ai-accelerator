@@ -1,0 +1,1 @@
+variant=lut spad=0 max_n_pe=296 first_fail=304

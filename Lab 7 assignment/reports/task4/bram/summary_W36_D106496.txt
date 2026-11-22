@@ -1,0 +1,11 @@
+width=36
+depth=106496
+status=FAILED_place
+lut=80519
+ff=639
+bram_tile=0
+ramb36=0
+ramb18=0
+wns=NA
+seconds=227
+message=ERROR: [Common 17-69] Command failed: Placer could not place all instances 

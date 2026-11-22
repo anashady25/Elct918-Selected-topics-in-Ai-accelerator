@@ -1,0 +1,1 @@
+variant=dsp spad=1 max_n_pe=312 first_fail=320
