@@ -2,17 +2,107 @@
 
 Target: **Nexys 4 DDR**, Artix-7 **xc7a100tcsg324-1**, Vivado **2018.2** (MIG v4.1, Clocking Wizard v6.0).
 
-This folder is the complete submission of Lab 7. Everything that does not need the
-physical board has been done here (RTL, testbenches, simulations, implementation,
-power analysis, the two design space explorations, tables and plots). The few
-steps that need the board are listed at the end in
-[Instructions for the board run](#instructions-for-the-board-run-teammate).
+Repo: https://github.com/anashady25/Elct918-Selected-topics-in-Ai-accelerator/tree/main/Lab%207%20assignment
+
+RTL, simulations, BRAM bitstream, BRAM power, Task 4 sweeps, tables and plots are done.
+Two people finish the rest: **you (Vivado + screenshots)** and **the teammate (board only)**.
+
+---
+
+## What YOU do (no board)
+
+Vivado **must** be started from the Windows Start menu, not from Cursor.
+
+### 1. Map a short path (once per login)
+
+Open **Command Prompt**:
+
+```bat
+subst L: "D:\Uni work\Semester 9\AI HW accelerators\Lab 7\Lab7 assignment"
+```
+
+### 2. Build the DDR2 bitstream (15–25 min)
+
+Start **Vivado 2018.2**. In the Tcl Console:
+
+```tcl
+cd L:/
+source scripts/build_ddr.tcl
+```
+
+Wait until it prints `DONE: bitstreams/ddr_top.bit`.  
+If it sits forever on MIG, close Vivado, start it again from the Start menu, and run the same two lines.
+
+Then, still in Tcl Console:
+
+```tcl
+close_project
+set argv {15 30}
+source scripts/power_ddr.tcl
+```
+
+### 3. Screenshots for the printed report
+
+**Task 1** — File → Open Project → `L:/build/ddr_proj/ddr_proj.xpr`
+
+| Need | Where |
+|---|---|
+| MIG summary | IP Sources → double-click `ddr` → Next until **Summary** → screenshot → **Cancel** |
+| Clocking Wizard | IP Sources → double-click `clk_wiz_0` → Output Clocks (200 MHz + 100 MHz) → screenshot → **Cancel** |
+| MIG utilization | Open Implemented Design → Report Utilization → hierarchy row `u_ram/Inst_DDR` |
+| Timing WNS | Report Timing Summary (WNS should be ≥ 0) |
+
+**Task 2** — File → Open Project → `L:/build/bram_proj/bram_proj.xpr`
+
+1. Run Simulation → Run Behavioral Simulation (`tb_bram`).
+2. Tcl: `restart` then `run all`. Screenshot the console **PASS**.
+3. Waveform: add `dut/clk`, `en`, `we`, `addr`, `din`, `dout`. Zoom on a write: `dout` still shows the **old** value (read-first). Screenshot.
+4. Open Implemented Design → Report Utilization → Memory: **4 RAMB36, 0 RAMB18**. Screenshot.
+
+**Task 3 / 4** — use the files already in `results/` (tables and `.png` plots). After step 2, also run:
+
+```bat
+cd /d L:\
+python scripts\collect_results.py
+```
+
+### 4. Send the bitstream to your teammate and push
+
+`bitstreams/bram_top.bit` is already in the repo. After step 2, add and push:
+
+```bat
+git add "Lab 7 assignment/bitstreams/ddr_top.bit" "Lab 7 assignment/reports" "Lab 7 assignment/results"
+git commit -m "Lab 7: DDR bitstream and power reports"
+git push
+```
+
+Tell your teammate the repo is updated. They only need **[Instructions for the board run](#instructions-for-the-board-run-teammate)** at the bottom of this file.
+
+### 5. After they send photos + hex numbers
+
+```bat
+cd /d L:\
+python scripts\bandwidth_from_display.py ddr  <SW01> <SW10> <SW11>
+python scripts\bandwidth_from_display.py bram <SW01> <SW10>
+python scripts\collect_results.py
+```
+
+Optional: re-run DDR power with the measured cycles/word printed by that script:
+
+```tcl
+cd L:/
+source scripts/power_ddr.tcl
+```
+
+(pass the two numbers as `set argv {T_WR T_RD}` first). Then push `results/` again.
+
+---
 
 ## Status at a glance
 
 | Task | Part | Status |
 |---|---|---|
-| 1 | MIG `ddr` + `clk_wiz_0` + `ram2ddr_fixed.vhd` + own top `ddr_top` | RTL done; build script `scripts/build_ddr.tcl` (see the MIG note below) |
+| 1 | MIG `ddr` + `clk_wiz_0` + `ram2ddr_fixed.vhd` + own top `ddr_top` | RTL done; **you** run `scripts/build_ddr.tcl` from the Start-menu Vivado |
 | 1 | `ddr_ctrl` traffic controller with the 4-phase `ram_ack_o` handshake | done, verified in simulation (through the BRAM adapter) |
 | 1 | Full 128 MiB run + PASS / error count on LEDs / 7-seg | **board** |
 | 1 | Cycle counts of one write and one read pass → bandwidth | **board** (display shows the counts) |
@@ -499,74 +589,31 @@ vivado -mode batch -source scripts/sweep_pe.tcl -tclargs lut 1
 python scripts\collect_results.py
 ```
 
-**Paths with spaces and the MIG.** The MIG generator (`mig.exe`) is fragile with spaces in the path. All builds were run from a drive letter mapped onto this folder: `subst L: "<full path>\Lab7 assignment"`, then `cd /d L:\`. Also, `mig.exe` hung (0 % CPU, no output) when started from inside the Cursor editor's terminal. That is why `build_ddr.tcl` has to be run from a normally started Vivado or command prompt (see the guide below).
+**Path with spaces.** Map the folder first: `subst L: "<full path>\Lab7 assignment"` then `cd /d L:\`. Run `build_ddr.tcl` from a Vivado started from the Windows Start menu.
 
 ---
 
-## 7. Vivado GUI guide – screenshots for the report
+## 7. Vivado GUI screenshots
 
-Start **Vivado 2018.2 from the Start menu** (not from an editor terminal). First open a normal `cmd` window and map the folder to a short path. This only has to be done once per Windows login:
+Same as **[What YOU do](#what-you-do-no-board)** steps 3. Extra optional shots:
 
-```bat
-subst L: "D:\Uni work\Semester 9\AI HW accelerators\Lab 7\Lab7 assignment"
-```
-
-### Step 1 – Build the DDR2 design (Task 1) and run its power analysis (Task 3)
-
-1. In the Vivado **Tcl Console** (bottom of the start page) type:
-   ```tcl
-   cd L:/
-   source scripts/build_ddr.tcl
-   ```
-   This takes 15–25 minutes. It ends with `DONE: bitstreams/ddr_top.bit`.
-2. Then run the DDR2 power analysis in the same console:
-   ```tcl
-   close_project
-   set argv {15 30}
-   source scripts/power_ddr.tcl
-   ```
-   When the board measurement is known, rerun it with the measured cycles per access instead of `15 30` (see the end of this README).
-3. Open the project: **File → Project → Open…** → `L:/build/ddr_proj/ddr_proj.xpr`.
-
-### Step 2 – Screenshots for Task 1
-
-| Screenshot | Where |
-|---|---|
-| **MIG summary** | Sources → IP Sources → double-click `ddr` → the MIG wizard opens; click **Next** until the **Summary** page and screenshot it (also the *Memory Options* and *FPGA Options* pages). Close with **Cancel** (do not regenerate). |
-| **Clocking Wizard settings** | IP Sources → double-click `clk_wiz_0` → tabs *Clocking Options* and *Output Clocks* (200 MHz and 100 MHz) → screenshot → Cancel. |
-| **Utilization of the MIG alone** | Flow Navigator → *Open Implemented Design* → Reports → *Report Utilization* → in the hierarchy view expand `ddr_top` → the row `u_ram/Inst_DDR` (`ddr`) is the MIG. Screenshot that row. The text version is `reports/task1/ddr_top_utilization_hier.rpt` (plus `mig_ooc_synth_utilization.rpt`). |
-| **Timing summary (WNS)** | Implemented design → *Report Timing Summary* → Design Timing Summary (WNS, TNS, WHS all ≥ 0). |
-| **Power (optional)** | Implemented design → *Report Power* → Summary page. |
-
-### Step 3 – Screenshots for Task 2
-
-1. **File → Project → Open…** → `L:/build/bram_proj/bram_proj.xpr`.
-2. **Simulation waveform and console output**
-   1. In the Flow Navigator, click **Run Simulation → Run Behavioral Simulation**. The top is `tb_bram`.
-   2. In the Tcl console, type `restart` and then `run all`. The console ends with `PASS`; screenshot it.
-   3. In the waveform window, add `clk`, `en`, `we`, `addr`, `din`, `dout` from `tb_bram/dut`.
-   4. Zoom onto the **read-first test**. During the cycle with `we = 1`, `dout` shows the *old* contents and the new value appears on the next read. Screenshot it.
-   5. Also zoom onto the start (preload check: DEADBEEF, CAFEBABE, …).
-3. **Optional controller waveform.** In Sources → Simulation Sources, right-click `tb_bram_top` → *Set as Top*, then run the simulation again. Show `u_ctrl/mem_cen`, `mem_wen`, `mem_oen`, `mem_ack`, `mem_a` and `mem_d`: this is the 4-phase handshake, 3 cycles per word.
-4. **Utilization (RAMB18 / RAMB36):** Open Implemented Design → Report Utilization → *Memory* → Block RAM: 4 RAMB36, 0 RAMB18.
-
-### Step 4 – Task 3 and Task 4 (nothing to click)
-
-Everything is in `results/`: the tables (`.md`) and plots (`.png`). After Step 1, run:
-
-```bat
-cd /d L:\
-python scripts\collect_results.py
-```
-
-That adds the DDR2 rows to the power tables, the plots and the energy per bit. For the report you can also open one `.rpt`, for example `reports/task3/power_bram_write_lfsr.rpt`. Or open the routed checkpoint (`File → Checkpoint → Open` → `build/bram_top_routed.dcp`), run `read_saif build/saif/bram_write_lfsr.saif -strip_path tb_power/dut`, then *Report Power*, and screenshot the summary with confidence "High".
+- Task 2 controller handshake: set `tb_bram_top` as simulation top, show `mem_cen`, `mem_wen`, `mem_oen`, `mem_ack` (3 cycles per word).
+- Task 3 power: File → Checkpoint → Open `build/bram_top_routed.dcp`, then in Tcl `read_saif build/saif/bram_write_lfsr.saif -strip_path tb_power/dut` and Report Power (confidence High).
 
 ---
 
 ## Instructions for the board run (teammate)
 
-You need: the Nexys 4 DDR board, a micro-USB cable, Vivado (any version with the Hardware Manager), and this folder.
-The two bitstreams are `bitstreams/ddr_top.bit` and `bitstreams/bram_top.bit`. You do **not** have to build anything.
+**You only program the FPGA and take photos. Do not build anything.**
+
+Pull the latest `Lab 7 assignment` folder from GitHub. You need:
+
+| File | Ready? |
+|---|---|
+| `bitstreams/bram_top.bit` | yes — do Task 2 now |
+| `bitstreams/ddr_top.bit` | after your teammate finishes the Vivado DDR build and pushes |
+
+Hardware: Nexys 4 DDR, micro-USB (PROG UART), Vivado Hardware Manager (any version).
 
 ### Programming
 
@@ -613,20 +660,19 @@ The switches are read when the test starts. **After changing switches, press the
 2. Write down SW7..6 = 01 and 10. Both should be **`00003000`** (12288 cycles = 3 per word), photo.
 3. Optional: try SW[2:0] = 001 … 101 + CPU_RESET; each should give PASS.
 
-### After the board run
+### What to send back (nothing else)
 
-In the `Lab7 assignment` folder, run:
+Send your teammate:
 
-```bat
-python scripts\bandwidth_from_display.py ddr  <SW=01 value> <SW=10 value> <SW=11 value>
-python scripts\bandwidth_from_display.py bram <SW=01 value> <SW=10 value>
+1. Photos of PASS (LEDs + display) for BRAM and DDR2.
+2. The hex numbers, labelled:
+
+```
+BRAM SW01 (write cycles) =
+BRAM SW10 (read cycles)  =
+DDR  SW01 (write cycles) =
+DDR  SW10 (read cycles)  =
+DDR  SW11 (upper bits)   =
 ```
 
-This prints the cycles per word and MB/s and stores them in `results/bandwidth.json`. For example, `python scripts\bandwidth_from_display.py ddr 3C000000 78000000 00000001`.
-
-Then send back:
-* the photos;
-* the hex values;
-* the updated `results/bandwidth.json`.
-
-The DDR2 power reports can then be regenerated with the measured cycles per access: `T_WR` = write cycles / 2^26 and `T_RD` = read cycles / 2^26, both printed by the script as "cycles/word". Run `vivado -mode batch -source scripts/power_ddr.tcl -tclargs <T_WR> <T_RD>` and then `python scripts\collect_results.py`.
+They will convert those to MB/s. You do not need to run Python or Vivado.
